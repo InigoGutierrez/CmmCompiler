@@ -1,0 +1,3 @@
+CmmCompiler/out/
+CmmCompiler/lib/*.jar
+CmmCompiler/src/parser/gen/

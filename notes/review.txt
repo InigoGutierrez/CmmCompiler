@@ -1,0 +1,12 @@
+- Function type missing in implementation
+- Shows Expressions instead of Statement
+- Arguments (in implementation) come from the type of the function
+- Diagram for definitions is different from implementation
+
+Rename type of cast to casttype
+
+Implement toString in nodes
+
+maybe clean up array definition
+
+FunctionInvocation's name is a variable

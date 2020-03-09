@@ -1,0 +1,18 @@
+new package errorhandler
+
+<<Singleton>>
+ErrorHandler
+addError(ErrorType)
+anyError() boolean
+showErrors(PrintStream System.err)
+
+Errors are added to the Handler in their constructor
+(ErrorHandler.getInstance.addError(this));
+
+Errors are shown after generating the AST
+
+ErrorHandler o--> "*" ErrorType
+
+ErrorType(line, column, message)
+public toString()
+
