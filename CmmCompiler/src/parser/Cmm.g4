@@ -31,7 +31,7 @@ expression returns [Expression ast]:
           | e1=expression op='.' ID
           { $ast = new FieldAccessor($op.getLine(), $op.getCharPositionInLine()+1, $e1.ast, $ID.text); }
           | '(' pt=primitiveType ')' e1=expression
-          { $ast = new Cast($pt.ast.getLine(), $pt.ast.getColumn(), $pt.ast, $e1.ast); }
+          { $ast = new CastExpr($pt.ast.getLine(), $pt.ast.getColumn(), $pt.ast, $e1.ast); }
           | op='-' e1=expression
           { $ast = new UnaryMinus($op.getLine(), $op.getCharPositionInLine()+1, $e1.ast); }
           | e1=expression op=('*' | '/' | '%') e2=expression
@@ -49,7 +49,7 @@ expression returns [Expression ast]:
           | INT_CONSTANT { $ast = new IntLiteral($INT_CONSTANT.getLine(),
                 $INT_CONSTANT.getCharPositionInLine()+1,
                 LexerHelper.lexemeToInt($INT_CONSTANT.text)); }
-          | REAL_CONSTANT { $ast = new DoubleLiteral($REAL_CONSTANT.getLine(),
+          | REAL_CONSTANT { $ast = new RealLiteral($REAL_CONSTANT.getLine(),
                 $REAL_CONSTANT.getCharPositionInLine()+1,
                 LexerHelper.lexemeToReal($REAL_CONSTANT.text)); }
           | CHAR_CONSTANT { $ast = new CharLiteral($CHAR_CONSTANT.getLine(),

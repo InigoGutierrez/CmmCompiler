@@ -6,7 +6,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/src/parser/Cmm.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="$PROJECT_DIR$/src/" />
+          <option name="outputDir" value="src/" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="parser.gen" />

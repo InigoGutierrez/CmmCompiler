@@ -12,4 +12,9 @@ public class VarDefinition extends AbstractDefinition {
         this.name = name;
         this.offset = offset;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
 }

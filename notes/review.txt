@@ -1,12 +1,16 @@
-- Function type missing in implementation
-- Shows Expressions instead of Statement
-- Arguments (in implementation) come from the type of the function
-- Diagram for definitions is different from implementation
+[X] Function type missing in implementation
 
-Rename type of cast to casttype
+[X] Arguments (in implementation) come from the type of the function
 
-Implement toString in nodes
+[X] FunctionInvocation's name is a variable
 
-maybe clean up array definition
+[X] Shows Expressions instead of Statement
 
-FunctionInvocation's name is a variable
+[ ] Diagram for definitions is different from implementation
+
+[X] Rename type of cast to casttype
+
+[ ] Implement toString in nodes
+
+[ ] Maybe clean up array definition
+
