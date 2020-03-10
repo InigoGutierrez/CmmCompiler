@@ -1,0 +1,32 @@
+@startuml
+
+interface ASTNode
+interface Type
+interface Definition
+interface Statement
+
+class Program
+class VarDefinition
+class FuncDefinition
+
+ASTNode : getLine(): int
+ASTNode : getColumn(): int
+
+Definition : getType(): Type
+Definition : getName(): String
+
+ASTNode <|.. Program
+ASTNode <|.. Definition
+ASTNode <|.. Type
+
+Definition "1..*" <--o Program
+Type "1" <--o Definition
+
+Definition <|.. VarDefinition
+Definition <|.. FuncDefinition
+
+FuncDefinition o--> "0..*" VarDefinition
+FuncDefinition o--> "0..*" Statement
+
+@enduml
+

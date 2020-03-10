@@ -1,0 +1,47 @@
+@startuml
+
+interface Statement
+interface Expression
+
+class Assignment
+class If
+class While
+class For
+class Read
+class Write
+class Invocation
+class Return
+
+Statement <|.. Assignment
+Statement <|.. If
+Statement <|.. While
+Statement <|.. For
+Statement <|.. Read
+Statement <|.. Write
+Statement <|.. Invocation
+Statement <|.. Return
+
+If --> "1" Expression : condition
+Statement "1..*" <-- If : body
+Statement "0..*" <-- If : else body
+
+Statement "1..*" <-- While : body
+While --> "1" Expression : condition
+
+Statement "1..*" <-- For : body
+For --> "1" Expression : condition
+
+Read --> "1" Expression
+
+Write --> "1" Expression
+
+Invocation o--> "1" FunctionInvocation
+FunctionInvocation ..|> Expression
+
+Assignment --> "1" Expression : assigned
+Assignment --> "1" Expression : value
+
+Return --> "1" Expression : returned
+
+@enduml
+

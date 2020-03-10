@@ -1,0 +1,58 @@
+@startuml
+
+interface Expression
+interface Type
+
+class Cast
+class UnaryNot
+class Comparison
+class Logical
+class Variable
+class IntLiteral
+class RealLiteral
+class CharLiteral
+class Arithmetic
+class UnaryMinus
+class FieldAccessor
+class Indexing
+class FunctionInvocation
+
+Variable : String name
+Logical : String operation
+Comparison : String operation
+IntLiteral : int value
+RealLiteral : double value
+CharLiteral : char value
+Arithmetic : String operation
+FieldAccessor : String field
+
+Cast ..|> Expression
+UnaryNot ..|> Expression
+Comparison ..|> Expression
+Logical ..|> Expression
+Variable ..|> Expression
+Indexing ..|> Expression
+Expression <|.. IntLiteral
+Expression <|.. RealLiteral
+Expression <|.. CharLiteral
+Expression <|.. Arithmetic
+Expression <|.. UnaryMinus
+FieldAccessor ..|> Expression
+Expression <|.. FunctionInvocation
+
+Cast o--> "1" Expression : casted
+UnaryNot o--> "1" Expression
+Comparison o--> "2" Expression
+Logical o--> "2" Expression
+Indexing o--> "1" Expression : indexed
+Indexing o--> "1" Expression : index
+Expression "2" <--o Arithmetic
+Expression "1" <--o UnaryMinus
+FieldAccessor o--> "1" Expression : accessed
+Expression "0..*" <--o FunctionInvocation : arguments
+
+Cast o--> "1" Type
+FunctionInvocation o--> "1" Variable
+
+@enduml
+

@@ -1,0 +1,50 @@
+@startuml
+
+interface Type
+interface ASTNode
+
+class VoidType
+class IntType
+class RealType
+class CharType
+class Array
+class FunctionType
+class Record
+class RecordField
+class VarDefinition
+class ErrorType
+
+ASTNode : getLine(): int
+ASTNode : getColumn(): int
+
+VarDefinition : String: name
+VarDefinition : int: offset
+Array : int: size
+RecordField : String: name
+RecordField : int: offset
+ErrorType : String: message
+
+ASTNode <|.. Type
+
+Type <|.. VoidType
+Type <|.. IntType
+Type <|.. RealType
+Type <|.. CharType
+
+Type <|.. Array
+Array --> "1" Type
+
+Type <|. FunctionType
+Type "1" <--o FunctionType : return
+VarDefinition "0..*" <--o FunctionType : arguments
+Type "1" <--o  VarDefinition
+
+Type <|.. Record
+Record o--> "1..*" RecordField
+ASTNode <|.. RecordField
+RecordField o--> "1" Type
+
+Type <|.. ErrorType
+
+@enduml
+
