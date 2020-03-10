@@ -88,7 +88,7 @@ statement returns [List<Statement> ast = new ArrayList<Statement>()]:
         { for (Expression exp : $es.ast)
             $ast.add(new Write(exp.getLine(), exp.getColumn(), exp)); }
         | fi=functionInvocation ';'
-        { $ast.add(new Invocation($fi.ast.getLine(), $fi.ast.getColumn(), $fi.ast.getName(), $fi.ast.getArguments())); }
+        { $ast.add(new Invocation($fi.ast))); }
         | op='return' e1=expression ';'
         { $ast.add(new Return($op.getLine(), $op.getCharPositionInLine()+1, $e1.ast)); }
     ;
