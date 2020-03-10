@@ -6,11 +6,11 @@
 
 [X] Shows Expressions instead of Statement
 
-[ ] Diagram for definitions is different from implementation
+[X] Diagram for definitions is different from implementation
 
 [X] Rename type of cast to casttype
 
-[ ] Implement toString in nodes
+[X] Implement toString in nodes
 
 [ ] Maybe clean up array definition
 

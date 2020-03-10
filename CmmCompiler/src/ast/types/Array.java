@@ -10,10 +10,14 @@ public class Array extends AbstractType {
         this.type = type;
         this.size = size;
     }
+
+    public Type getType() {
+        return type;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
 }
 
-//int [2][3]
-//
-//        { type {type int, size 2} , size 3 }
-//
-//        type { type int, size 3}, size 2 }
