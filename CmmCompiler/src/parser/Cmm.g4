@@ -56,6 +56,7 @@ expression returns [Expression ast]:
                 $CHAR_CONSTANT.getCharPositionInLine()+1,
                 LexerHelper.lexemeToChar($CHAR_CONSTANT.text)); }
           | variable
+          { $ast = $variable.ast; }
           ;
 
 variable returns [Variable ast]:
