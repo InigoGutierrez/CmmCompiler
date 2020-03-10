@@ -7,8 +7,8 @@ import java.util.List;
 
 public class FunctionInvocation extends AbstractASTNode implements Expression {
 
-    Variable name;
-    List<Expression> args;
+    private Variable name;
+    private List<Expression> args;
 
     public FunctionInvocation(int line, int column, Variable name, List<Expression> args) {
         super(line, column);
@@ -22,6 +22,13 @@ public class FunctionInvocation extends AbstractASTNode implements Expression {
 
     public List<Expression> getArguments() {
         return new ArrayList(args);
+    }
+
+    @Override
+    public String toString() {
+        return "FunctionInvocation{" +
+                "name=" + name +
+                '}';
     }
 
 }

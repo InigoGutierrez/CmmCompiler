@@ -7,8 +7,8 @@ import java.util.List;
 
 public class For extends AbstractASTNode implements Statement {
 
-    Expression exp;
-    List<Statement> statements;
+    private Expression exp;
+    private List<Statement> statements;
 
     public For(int line, int column, Expression exp, List<Statement> statements) {
         super(line, column);
@@ -16,4 +16,10 @@ public class For extends AbstractASTNode implements Statement {
         this.statements = statements;
     }
 
+    @Override
+    public String toString() {
+        return "For{" +
+                "exp=" + exp +
+                '}';
+    }
 }

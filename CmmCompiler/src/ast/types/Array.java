@@ -2,8 +2,8 @@ package ast.types;
 
 public class Array extends AbstractType {
 
-    Type type;
-    int size;
+    private Type type;
+    private int size;
 
     public Array(int line, int column, Type type, int size) {
         super(line, column);

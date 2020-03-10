@@ -49,7 +49,7 @@ expression returns [Expression ast]:
           | INT_CONSTANT { $ast = new IntLiteral($INT_CONSTANT.getLine(),
                 $INT_CONSTANT.getCharPositionInLine()+1,
                 LexerHelper.lexemeToInt($INT_CONSTANT.text)); }
-          | REAL_CONSTANT { $ast = new RealLiteral($REAL_CONSTANT.getLine(),
+          | REAL_CONSTANT { $ast = new DoubleLiteral($REAL_CONSTANT.getLine(),
                 $REAL_CONSTANT.getCharPositionInLine()+1,
                 LexerHelper.lexemeToReal($REAL_CONSTANT.text)); }
           | CHAR_CONSTANT { $ast = new CharLiteral($CHAR_CONSTANT.getLine(),
@@ -65,7 +65,8 @@ variable returns [Variable ast]:
 
 functionInvocation returns [FunctionInvocation ast]:
     ID '(' arguments ')'
-    { $ast = new FunctionInvocation($ID.getLine(), $ID.getCharPositionInLine()+1, $ID.text, $arguments.ast); }
+    { Variable var = new Variable($ID.getLine(), $ID.getCharPositionInLine()+1, $ID.text);
+    $ast = new FunctionInvocation(var.getLine(), var.getColumn(), var, $arguments.ast); }
     ;
 
 arguments returns [List<Expression> ast = new ArrayList<Expression>()]:
@@ -88,7 +89,7 @@ statement returns [List<Statement> ast = new ArrayList<Statement>()]:
         { for (Expression exp : $es.ast)
             $ast.add(new Write(exp.getLine(), exp.getColumn(), exp)); }
         | fi=functionInvocation ';'
-        { $ast.add(new Invocation($fi.ast))); }
+        { $ast.add(new Invocation($fi.ast)); }
         | op='return' e1=expression ';'
         { $ast.add(new Return($op.getLine(), $op.getCharPositionInLine()+1, $e1.ast)); }
     ;
@@ -140,7 +141,8 @@ functionDefinition returns [FunctionDefinition ast]
     { FunctionType ftype = new FunctionType($var.ast.getLine(), $var.ast.getColumn(), $rtype.ast, $ad.ast); }
     '{' ( vd=varDefinition { $vdefs.addAll($vd.ast); } )*
     (stmnt=statement { $stmnts.addAll($stmnt.ast); } )* '}'
-    { $ast = new FunctionDefinition($var.ast.getLine(), $var.ast.getColumn(), ftype, $var.ast, $vdefs, $stmnts); }
+    { $ast = new FunctionDefinition($var.ast.getLine(), $var.ast.getColumn(), ftype, $var.ast.getName(), $vdefs,
+        $stmnts); }
     ;
 
 argumentsDefinition returns [List<VarDefinition> ast = new ArrayList<VarDefinition>()]
@@ -164,7 +166,7 @@ mainDefinition returns [FunctionDefinition ast]
     { Variable var = new Variable($name.getLine(), $name.getCharPositionInLine()+1, $name.text); }
     { FunctionType ftype = new FunctionType(var.getLine(), var.getColumn(), new VoidType(
         $rType.getLine(), $rType.getCharPositionInLine()+1), new ArrayList<VarDefinition>()); }
-    { $ast = new FunctionDefinition($name.getLine(), $name.getCharPositionInLine()+1, ftype, var, $vdefs, $stmnts); }
+    { $ast = new FunctionDefinition(var.getLine(), var.getColumn(), ftype, var.getName(), $vdefs, $stmnts); }
     ;
 
 type returns [Type ast]

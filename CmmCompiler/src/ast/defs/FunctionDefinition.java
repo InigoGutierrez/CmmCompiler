@@ -9,9 +9,9 @@ import ast.types.Type;
 
 public class FunctionDefinition extends AbstractDefinition {
 
-    String name;
-    List<VarDefinition> varDefs;
-    List<Statement> statements;
+    private String name;
+    private List<VarDefinition> varDefs;
+    private List<Statement> statements;
 
     public FunctionDefinition(int line, int column, Type type, String name, List<VarDefinition> varDefs,
                               List<Statement> statements) {
@@ -24,6 +24,14 @@ public class FunctionDefinition extends AbstractDefinition {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "FunctionDefinition{" +
+                "name='" + name + '\'' +
+                ", type=" + getType() +
+                '}';
     }
 }
 

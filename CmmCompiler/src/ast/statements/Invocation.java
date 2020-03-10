@@ -16,4 +16,12 @@ public class Invocation extends AbstractASTNode implements Statement {
         this.fInvocation = fInvocation;
     }
 
+    @Override
+    public String toString() {
+        return "Invocation{" +
+                "fInvocation=" + fInvocation +
+                '}';
+    }
+
 }
+

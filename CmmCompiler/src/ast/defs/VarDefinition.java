@@ -4,8 +4,8 @@ import ast.types.Type;
 
 public class VarDefinition extends AbstractDefinition {
 
-    String name;
-    int offset;
+    private String name;
+    private int offset;
 
     public VarDefinition(int line, int column, Type type, String name, int offset) {
         super(line, column, type);
@@ -16,5 +16,14 @@ public class VarDefinition extends AbstractDefinition {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "VarDefinition{" +
+                "name='" + name + '\'' +
+                ", offset=" + offset +
+                ", type=" + getType() +
+                '}';
     }
 }

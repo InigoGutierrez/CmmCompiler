@@ -4,9 +4,9 @@ import ast.AbstractASTNode;
 
 public class Arithmetic extends AbstractASTNode implements Expression {
 
-    Expression expA;
-    Expression expB;
-    String operation;
+    private Expression expA;
+    private Expression expB;
+    private String operation;
 
     public Arithmetic(int line, int column, Expression expA, Expression expB, String operation) {
         super(line, column);
@@ -15,4 +15,12 @@ public class Arithmetic extends AbstractASTNode implements Expression {
         this.operation = operation;
     }
 
+    @Override
+    public String toString() {
+        return "Arithmetic{" +
+                "expA=" + expA +
+                ", expB=" + expB +
+                ", operation='" + operation + '\'' +
+                '}';
+    }
 }

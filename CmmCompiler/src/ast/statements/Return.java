@@ -5,7 +5,7 @@ import ast.exps.Expression;
 
 public class Return extends AbstractASTNode implements Statement {
 
-    Expression exp;
+    private Expression exp;
 
     public Return(int line, int column, Expression exp) {
         super(line, column);

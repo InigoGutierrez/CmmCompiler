@@ -8,9 +8,9 @@ import java.util.List;
 
 public class If extends AbstractASTNode implements Statement {
 
-    Expression condition;
-    List<Statement> statements;
-    List<Statement> elseStatements;
+    private Expression condition;
+    private List<Statement> statements;
+    private List<Statement> elseStatements;
 
     public If(int line, int column, Expression condition, List<Statement> statements) {
         super(line, column);
@@ -25,4 +25,10 @@ public class If extends AbstractASTNode implements Statement {
         this.elseStatements = new ArrayList(elseStatements);
     }
 
+    @Override
+    public String toString() {
+        return "If{" +
+                "condition=" + condition +
+                '}';
+    }
 }

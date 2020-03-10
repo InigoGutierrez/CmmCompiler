@@ -4,8 +4,8 @@ import ast.AbstractASTNode;
 
 public class FieldAccessor extends AbstractASTNode implements Expression {
 
-    String field;
-    Expression accessed;
+    private String field;
+    private Expression accessed;
 
     public FieldAccessor(int line, int column, Expression accessed, String field) {
         super(line, column);
@@ -13,4 +13,11 @@ public class FieldAccessor extends AbstractASTNode implements Expression {
         this.field = field;
     }
 
+    @Override
+    public String toString() {
+        return "FieldAccessor{" +
+                "field='" + field + '\'' +
+                ", accessed=" + accessed +
+                '}';
+    }
 }

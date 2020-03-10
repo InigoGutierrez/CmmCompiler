@@ -2,18 +2,18 @@ package ast.exps;
 
 import ast.AbstractASTNode;
 
-public class IntLiteral extends AbstractASTNode implements Expression {
+public class DoubleLiteral extends AbstractASTNode implements Expression {
 
-    private int value;
+    private double value;
 
-    public IntLiteral(int line, int column, int value) {
+    public DoubleLiteral(int line, int column, double value) {
         super(line, column);
         this.value = value;
     }
 
     @Override
     public String toString() {
-        return "IntLiteral{" +
+        return "DoubleLiteral{" +
                 "value=" + value +
                 '}';
     }

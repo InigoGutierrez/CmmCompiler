@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Record extends AbstractType {
 
-    List<RecordField> recordFields;
+    private List<RecordField> recordFields;
 
     public Record(int line, int column, List<RecordField> recordFields) {
         super(line, column);
@@ -37,6 +37,13 @@ public class Record extends AbstractType {
 
         for (Integer index : indexesToRemove) // Removes from highest to lowest
             recordFields.remove(index);
+    }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "recordFields=" + recordFields +
+                '}';
     }
 }
 

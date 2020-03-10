@@ -7,8 +7,8 @@ import java.util.List;
 
 public class FunctionType extends AbstractType {
 
-    Type returnType;
-    List<VarDefinition> args;
+    private Type returnType;
+    private List<VarDefinition> args;
 
     public FunctionType(int line, int column, Type returnType, List<VarDefinition> args) {
         super(line, column);

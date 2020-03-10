@@ -5,7 +5,7 @@ import ast.types.Type;
 
 public abstract class AbstractDefinition extends AbstractASTNode implements Definition {
 
-    Type type;
+    private Type type;
 
     public AbstractDefinition(int line, int column, Type type) {
         super(line, column);

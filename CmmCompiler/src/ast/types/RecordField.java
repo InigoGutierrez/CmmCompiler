@@ -31,4 +31,13 @@ public class RecordField extends AbstractASTNode {
         return offset;
     }
 
+    @Override
+    public String toString() {
+        return "RecordField{" +
+                "type=" + type +
+                ", name='" + name + '\'' +
+                ", offset=" + offset +
+                '}';
+    }
 }
+

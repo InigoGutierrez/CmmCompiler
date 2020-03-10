@@ -8,4 +8,10 @@ public class Read extends IOStatement {
         super(line, column, exp);
     }
 
+    @Override
+    public String toString() {
+        return "Read{" +
+                "exp=" + getExp() +
+                "}";
+    }
 }
