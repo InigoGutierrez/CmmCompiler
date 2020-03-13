@@ -1,7 +1,7 @@
 @startuml
 
-interface Expression
-interface Type
+!include expression.pu
+!include type.pu
 
 class Cast
 class UnaryNot

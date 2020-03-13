@@ -1,0 +1,10 @@
+@startuml
+
+interface ASTNode
+
+ASTNode : getLine(): int
+ASTNode : getColumn(): int
+ASTNode : accept(): void
+
+@enduml
+

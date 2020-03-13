@@ -1,0 +1,9 @@
+@startuml
+
+interface Expression
+
+Expression : getLvalue(): boolean
+Expression : setLvalue(boolean lvalue): void
+
+@enduml
+

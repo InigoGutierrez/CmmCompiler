@@ -1,7 +1,7 @@
 @startuml
 
-interface Type
-interface ASTNode
+!include type.pu
+!include astNode.pu
 
 class VoidType
 class IntType
@@ -13,9 +13,6 @@ class Record
 class RecordField
 class VarDefinition
 class ErrorType
-
-ASTNode : getLine(): int
-ASTNode : getColumn(): int
 
 VarDefinition : String: name
 VarDefinition : int: offset
@@ -42,7 +39,7 @@ Type "1" <--o  VarDefinition
 Type <|.. Record
 Record o--> "1..*" RecordField
 ASTNode <|.. RecordField
-RecordField o--> "1" Type
+RecordField --> "1" Type
 
 Type <|.. ErrorType
 

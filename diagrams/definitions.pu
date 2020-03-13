@@ -1,19 +1,13 @@
 @startuml
 
-interface ASTNode
-interface Type
-interface Definition
-interface Statement
+!include astNode.pu
+!include definition.pu
+!include type.pu
+!include statement.pu
 
 class Program
 class VarDefinition
 class FuncDefinition
-
-ASTNode : getLine(): int
-ASTNode : getColumn(): int
-
-Definition : getType(): Type
-Definition : getName(): String
 
 ASTNode <|.. Program
 ASTNode <|.. Definition

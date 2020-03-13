@@ -1,5 +1,7 @@
 package ast.types;
 
+import visitor.Visitor;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +14,10 @@ public class Record extends AbstractType {
         super(line, column);
         this.recordFields = new ArrayList(recordFields);
         checkRepetitions();
+    }
+
+    public List<RecordField> getRecordFields() {
+        return new ArrayList<>(recordFields);
     }
 
     private void checkRepetitions() {
@@ -37,6 +43,11 @@ public class Record extends AbstractType {
 
         for (Integer index : indexesToRemove) // Removes from highest to lowest
             recordFields.remove(index);
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP param) {
+        return visitor.visit(this, param);
     }
 
     @Override

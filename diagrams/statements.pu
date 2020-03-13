@@ -1,12 +1,11 @@
 @startuml
 
-interface Statement
-interface Expression
+!include statement.pu
+!include expression.pu
 
 class Assignment
 class If
 class While
-class For
 class Read
 class Write
 class Invocation
@@ -15,7 +14,6 @@ class Return
 Statement <|.. Assignment
 Statement <|.. If
 Statement <|.. While
-Statement <|.. For
 Statement <|.. Read
 Statement <|.. Write
 Statement <|.. Invocation
@@ -27,9 +25,6 @@ Statement "0..*" <-- If : else body
 
 Statement "1..*" <-- While : body
 While --> "1" Expression : condition
-
-Statement "1..*" <-- For : body
-For --> "1" Expression : condition
 
 Read --> "1" Expression
 

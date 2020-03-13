@@ -1,5 +1,7 @@
 package ast.types;
 
+import visitor.Visitor;
+
 public class Array extends AbstractType {
 
     private Type type;
@@ -17,6 +19,11 @@ public class Array extends AbstractType {
 
     public int getSize() {
         return size;
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP param) {
+        return visitor.visit(this, param);
     }
 
 }
