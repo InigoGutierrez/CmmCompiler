@@ -1,0 +1,29 @@
+@startuml
+
+interface Visitor<TP, TR>
+abstract AbstractVisitor<TP, TR>
+class TypeCheckingVisitor<Void, Void>
+
+interface Visitor {
+    TR visit(Program program, TP param)
+    TR visit(Arithmetic arith, TP param)
+    {method} ...
+    {abstract} (One method per concrete AST node)
+}
+
+abstract AbstractVisitor {
+    {abstract} (Base parsing behaviour of each interface method)
+}
+
+class TypeCheckingVisitor {
+    Void visit(Assignment assignment, Void param)
+    Void visit(Read read, Void param)
+    {abstract} (+ override of each expression method)
+}
+
+Visitor <|.. AbstractVisitor
+
+AbstractVisitor <|-- TypeCheckingVisitor
+
+@enduml
+
