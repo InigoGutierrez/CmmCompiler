@@ -7,16 +7,16 @@ class VoidType
 class IntType
 class RealType
 class CharType
-class Array
+class ArrayType
 class FunctionType
-class Record
+class RecordType
 class RecordField
 class VarDefinition
 class ErrorType
 
 VarDefinition : String: name
 VarDefinition : int: offset
-Array : int: size
+ArrayType : int: size
 RecordField : String: name
 RecordField : int: offset
 ErrorType : String: message
@@ -28,16 +28,16 @@ Type <|.. IntType
 Type <|.. RealType
 Type <|.. CharType
 
-Type <|.. Array
-Array --> "1" Type
+Type <|.. ArrayType
+ArrayType --> "1" Type
 
 Type <|. FunctionType
 Type "1" <--o FunctionType : return
 VarDefinition "0..*" <--o FunctionType : arguments
 Type "1" <--o  VarDefinition
 
-Type <|.. Record
-Record o--> "1..*" RecordField
+Type <|.. RecordType
+RecordType o--> "1..*" RecordField
 ASTNode <|.. RecordField
 RecordField --> "1" Type
 

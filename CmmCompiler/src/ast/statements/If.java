@@ -2,6 +2,7 @@ package ast.statements;
 
 import ast.AbstractASTNode;
 import ast.exps.Expression;
+import visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,23 @@ public class If extends AbstractASTNode implements Statement {
               List<Statement> elseStatements) {
         this(line, column, condition, statements);
         this.elseStatements = new ArrayList(elseStatements);
+    }
+
+    public Expression getCondition() {
+        return condition;
+    }
+
+    public List<Statement> getStatements() {
+        return new ArrayList<>(statements);
+    }
+
+    public List<Statement> getElseStatements() {
+        return new ArrayList<>(elseStatements);
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP param) {
+        return visitor.visit(this, param);
     }
 
     @Override

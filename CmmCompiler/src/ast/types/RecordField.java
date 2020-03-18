@@ -1,6 +1,7 @@
 package ast.types;
 
 import ast.AbstractASTNode;
+import visitor.Visitor;
 
 public class RecordField extends AbstractASTNode {
 
@@ -29,6 +30,11 @@ public class RecordField extends AbstractASTNode {
 
     public int getOffset() {
         return offset;
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP param) {
+        return visitor.visit(this, param);
     }
 
     @Override

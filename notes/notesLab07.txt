@@ -1,0 +1,55 @@
+L-value is a condition, yes or no, every expression node has it.
+
+The only two places which care about l-value are read and assignment.
+
+As said, it is a property of expressions, since it is the only place where it makes sense.
+
+"get" and "set" lvalue in Expression interface.
+
+
+A Visitor method for each concrete class.
+
+The second argument of visit methods uses generics: TP param. And the return type is also generic:
+TR.
+
+The Visitor class will be generic, not the methods.
+
+
+
+package visitor;
+public interface Visitor<TP, TR> {
+	public TR visit(Arithmetic arith, TP param);
+	//...
+}
+
+
+We will implement TypeCheckingVisitor, even if it just assigns l-values as of now.
+
+package semantic;
+public class TypeCheckingVisitor implements Visitor<Void, Void> {
+
+	@Override
+	public Void visit(Assignment assign, Void param) {
+		assign.getLHS().accept(this, null);
+		assign.getRHS().accept(this, null);
+		if (!assign.getLHS().getLvalue())
+			new ErrorType(assign.getLine(), assign.getColumn(), "Lvalue required.");
+	}
+}
+
+left of accept is always a tree
+
+public abstract AbstractVisitor<TP,TR> implements Visitor<TP,TR> {
+
+}
+
+public interface ASTNode {
+	public <TP,TR> TR accept(Visitor<TP,TR> visitor, TP param);
+}
+
+public class Arithmetic implements ASTNode {
+	@Override
+	public <TP,TR> TR accept(Visitor<TP,TR> visitor, TP param) {
+		return visitor.accept(this, param);
+	}
+}

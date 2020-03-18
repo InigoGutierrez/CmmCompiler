@@ -3,7 +3,7 @@ package ast.statements;
 import ast.AbstractASTNode;
 import ast.exps.Expression;
 
-public class IOStatement extends AbstractASTNode implements Statement {
+public abstract class IOStatement extends AbstractASTNode implements Statement {
 
     private Expression exp;
 

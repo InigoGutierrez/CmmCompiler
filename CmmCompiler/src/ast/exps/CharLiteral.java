@@ -1,8 +1,9 @@
 package ast.exps;
 
 import ast.AbstractASTNode;
+import visitor.Visitor;
 
-public class CharLiteral extends AbstractASTNode implements Expression {
+public class CharLiteral extends AbstractExpression {
 
         private char value;
 
@@ -10,6 +11,11 @@ public class CharLiteral extends AbstractASTNode implements Expression {
             super(line, column);
             this.value = value;
         }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP param) {
+        return visitor.visit(this, param);
+    }
 
     @Override
     public String toString() {

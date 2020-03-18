@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Record extends AbstractType {
+public class RecordType extends AbstractType {
 
     private List<RecordField> recordFields;
 
-    public Record(int line, int column, List<RecordField> recordFields) {
+    public RecordType(int line, int column, List<RecordField> recordFields) {
         super(line, column);
         this.recordFields = new ArrayList(recordFields);
         checkRepetitions();

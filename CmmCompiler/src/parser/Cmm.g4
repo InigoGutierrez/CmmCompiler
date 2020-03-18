@@ -18,9 +18,7 @@ program returns [Program ast]
     locals [List<Definition> defs = new ArrayList<Definition>()]:
     ( d=definition { for(Definition def : $d.ast) $defs.add(def); } )*
     md=mainDefinition { $defs.add($md.ast); } EOF
-    { $ast = new Program(1, 1, $defs);
-    if (ErrorHandler.getInstance().anyError())
-        ErrorHandler.getInstance().showErrors(System.err); }
+    { $ast = new Program(1, 1, $defs); }
     ;
 
 expression returns [Expression ast]:
@@ -179,10 +177,10 @@ type returns [Type ast]
         ( '[' size=INT_CONSTANT ']'
         { $arraySizes.addFirst(LexerHelper.lexemeToInt($size.text)); } )+
         { for (Integer size : $arraySizes)
-            result = new Array($at.ast.getLine(), $at.ast.getColumn(), result, size);
+            result = new ArrayType($at.ast.getLine(), $at.ast.getColumn(), result, size);
           $ast = result; }
     | word='struct' '{' ( rfd=recordFieldDefinition { $rfields.addAll($rfd.ast); } )* '}'
-        { $ast = new Record($word.getLine(), $word.getCharPositionInLine()+1, $rfields); }
+        { $ast = new RecordType($word.getLine(), $word.getCharPositionInLine()+1, $rfields); }
     | voidType='void' { $ast = new VoidType($voidType.getLine(), $voidType.getCharPositionInLine()+1); }
     ;
 

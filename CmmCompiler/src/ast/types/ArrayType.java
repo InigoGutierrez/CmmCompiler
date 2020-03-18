@@ -2,12 +2,12 @@ package ast.types;
 
 import visitor.Visitor;
 
-public class Array extends AbstractType {
+public class ArrayType extends AbstractType {
 
     private Type type;
     private int size;
 
-    public Array(int line, int column, Type type, int size) {
+    public ArrayType(int line, int column, Type type, int size) {
         super(line, column);
         this.type = type;
         this.size = size;

@@ -1,8 +1,9 @@
 package ast.exps;
 
 import ast.AbstractASTNode;
+import visitor.Visitor;
 
-public class FieldAccessor extends AbstractASTNode implements Expression {
+public class FieldAccessor extends AbstractExpression {
 
     private String field;
     private Expression accessed;
@@ -11,6 +12,19 @@ public class FieldAccessor extends AbstractASTNode implements Expression {
         super(line, column);
         this.accessed = accessed;
         this.field = field;
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public Expression getAccessed() {
+        return accessed;
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP param) {
+        return visitor.visit(this, param);
     }
 
     @Override

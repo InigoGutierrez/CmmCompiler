@@ -1,10 +1,12 @@
 import ast.Program;
+import errorhandler.ErrorHandler;
 import introspector.model.IntrospectorModel;
 import introspector.view.IntrospectorTree;
 
 import org.antlr.v4.runtime.*;
 import parser.gen.CmmLexer;
 import parser.gen.CmmParser;
+import semantic.TypeCheckingVisitor;
 
 public class Main {
 
@@ -24,8 +26,14 @@ public class Main {
 
 		Program root = parser.program().ast;
 
-		IntrospectorModel model = new IntrospectorModel("Root", root);
+		new TypeCheckingVisitor().visit(root, null);
+
+		if (ErrorHandler.getInstance().anyError())
+			ErrorHandler.getInstance().showErrors(System.err);
+
+	IntrospectorModel model = new IntrospectorModel("Root", root);
 		new IntrospectorTree("Tree", model);
 	}
 
 }
+

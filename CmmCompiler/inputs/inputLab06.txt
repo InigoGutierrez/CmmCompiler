@@ -2,7 +2,7 @@ struct {
 	int a;
 	char b;
 	double a;
-} record;
+} recordType;
 
 void main() {
 }
