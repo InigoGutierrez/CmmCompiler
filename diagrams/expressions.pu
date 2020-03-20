@@ -17,7 +17,11 @@ class FieldAccessor
 class Indexing
 class FunctionInvocation
 
-Variable : String name
+class Variable {
+    String name
+    Definition definition
+}
+
 Logical : String operation
 Comparison : String operation
 IntLiteral : int value

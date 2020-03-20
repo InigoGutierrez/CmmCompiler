@@ -3,6 +3,7 @@
 interface Visitor<TP, TR>
 abstract AbstractVisitor<TP, TR>
 class TypeCheckingVisitor<Void, Void>
+class IdentificationVisitor<Void, Void>
 
 interface Visitor {
     TR visit(Program program, TP param)
@@ -21,9 +22,17 @@ class TypeCheckingVisitor {
     {abstract} (+ override of each expression method)
 }
 
+class IdentificationVisitor {
+    - SymbolTable symbolTable
+    Void visit(VarDefinition varDef, Void param)
+    Void visit(FunctionDefinition fDef, Void param)
+    Void visit(Variable variable, Void param)
+}
+
 Visitor <|.. AbstractVisitor
 
 AbstractVisitor <|-- TypeCheckingVisitor
+AbstractVisitor <|-- IdentificationVisitor
 
 @enduml
 

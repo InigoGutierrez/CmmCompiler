@@ -4,6 +4,7 @@ interface Definition
 
 Definition : getType(): Type
 Definition : getName(): String
+Definition : getScope(): int
 
 @enduml
 

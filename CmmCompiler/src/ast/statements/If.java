@@ -50,3 +50,4 @@ public class If extends AbstractASTNode implements Statement {
                 '}';
     }
 }
+

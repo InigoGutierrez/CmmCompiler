@@ -41,4 +41,6 @@ public class Arithmetic extends AbstractExpression {
                 ", operation='" + operation + '\'' +
                 '}';
     }
+
 }
+
