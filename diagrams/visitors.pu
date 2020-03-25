@@ -4,6 +4,7 @@ interface Visitor<TP, TR>
 abstract AbstractVisitor<TP, TR>
 class TypeCheckingVisitor<Void, Void>
 class IdentificationVisitor<Void, Void>
+class OffsetVisitor<Void, Void>
 
 interface Visitor {
     TR visit(Program program, TP param)
@@ -29,10 +30,15 @@ class IdentificationVisitor {
     Void visit(Variable variable, Void param)
 }
 
+class OffsetVisitor {
+    Void visit(RecordType recordType, Void param)
+}
+
 Visitor <|.. AbstractVisitor
 
 AbstractVisitor <|-- TypeCheckingVisitor
 AbstractVisitor <|-- IdentificationVisitor
+AbstractVisitor <|-- OffsetVisitor
 
 @enduml
 
