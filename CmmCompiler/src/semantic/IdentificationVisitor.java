@@ -20,7 +20,7 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void> {
     public Void visit(VarDefinition varDef, Void param) {
         if ( !symbolTable.insert(varDef) )
             new ErrorType(varDef.getLine(), varDef.getColumn(),
-                    String.format("Variable declared again at %d:%d.", varDef.getLine(), varDef.getColumn()));
+                    String.format("Variable %s defined again.", varDef.getName()));
         return null;
     }
 
@@ -28,7 +28,7 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void> {
     public Void visit(FunctionDefinition fDef, Void param) {
         if ( !symbolTable.insert(fDef) )
             new ErrorType(fDef.getLine(), fDef.getColumn(),
-                    String.format("Variable declared again at %d:%d.", fDef.getLine(), fDef.getColumn()));
+                    String.format("Variable %s defined again.", fDef.getName()));
         symbolTable.set();
         super.visit(fDef, param);
         symbolTable.reset();
@@ -42,7 +42,7 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void> {
             var.setDefinition(def);
         else
             new ErrorType(var.getLine(), var.getColumn(),
-                    String.format("Undeclared variable at %d:%d.", var.getLine(), var.getColumn()));
+                    String.format("Undeclared variable %s.", var.getName()));
         return null;
     }
 }

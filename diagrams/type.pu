@@ -2,5 +2,21 @@
 
 interface Type
 
+interface Type {
+    cast(Type castedTo, Expression cast): Type
+    negate(Expression unaryNot): Type
+    compare(Type other, Expression comparison): Type
+    logical(Type other, Expression logical): Type
+    access(String field, Expression fieldAccess): Type
+    indexing(Type index, Expression indexing): Type
+    arithmetic(Type other, Expression arithmetic): Type
+    minus(Expression unaryMinus): Type
+    parenthesis(Type[] argTypes, Expression funcInvocation): Type
+    canAssign(Type valueType): boolean
+    isBoolean(): boolean
+    canReturn(Type typeToReturn): boolean
+    nob(): int
+}
+
 @enduml
 

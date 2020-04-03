@@ -1,6 +1,7 @@
 package ast.types;
 
 import ast.defs.VarDefinition;
+import ast.exps.Expression;
 import visitor.Visitor;
 
 import java.util.ArrayList;
@@ -26,8 +27,39 @@ public class FunctionType extends AbstractType {
     }
 
     @Override
+    public int nob() {
+        int size = 0;
+        for (VarDefinition arg : args) {
+            size += arg.getType().nob();
+        }
+        return size;
+    }
+
+    @Override
+    public Type parenthesis(Type[] argTypes, Expression funcInvocation) {
+        if (args.size() == argTypes.length) {
+            for (int i = 0; i < args.size(); i++) {
+                if (!args.get(i).equals(argTypes[i])) {
+                    Type wrongType = argTypes[i];
+                    return new ErrorType(wrongType.getLine(), wrongType.getColumn(), "Wrong argument type");
+                }
+            }
+            return returnType;
+        }
+        return super.parenthesis(argTypes, funcInvocation);
+    }
+
+    @Override
     public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP param) {
         return visitor.visit(this, param);
     }
-    
+
+    @Override
+    public String toString() {
+        return "FunctionType{" +
+                "returnType=" + returnType +
+                ", args=" + args +
+                '}';
+    }
 }
+

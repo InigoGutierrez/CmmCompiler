@@ -1,10 +1,16 @@
 @startuml
 
 interface Visitor<TP, TR>
+
 abstract AbstractVisitor<TP, TR>
 class TypeCheckingVisitor<Void, Void>
 class IdentificationVisitor<Void, Void>
 class OffsetVisitor<Void, Void>
+
+abstract AbstractCGVisitor<TP, TR>
+class ValueCGVisitor (expressions)
+class AddressCGVisitor (variables)
+class ExecuteCGVisitor (statements)
 
 interface Visitor {
     TR visit(Program program, TP param)
@@ -32,6 +38,21 @@ class IdentificationVisitor {
 
 class OffsetVisitor {
     Void visit(RecordType recordType, Void param)
+}
+
+class ValueCGVisitor {
+    Void visit(Arithmetic, Void)
+    Void visit(Variable, Void)
+    Void visit(IntLiteral, Void)
+}
+
+class ExecuteCGVisitor {
+    Void visit(Program, Void)
+    Void visit(IfStatement, Void)
+}
+
+class AddressCGVisitor {
+    Void visit(Variable, Void)
 }
 
 Visitor <|.. AbstractVisitor

@@ -4,6 +4,8 @@ interface Expression
 
 Expression : getLvalue(): boolean
 Expression : setLvalue(boolean lvalue): void
+Expression : getType(): Type
+Expression : setType(Type type): void
 
 @enduml
 

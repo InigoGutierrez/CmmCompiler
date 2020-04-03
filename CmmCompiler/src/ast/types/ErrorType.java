@@ -19,6 +19,8 @@ public class ErrorType extends AbstractType {
     }
 
     public String toString() {
-        return message;
+		return String.format("%d:%d:%s", getLine(), getColumn(), message);
     }
+
 }
+

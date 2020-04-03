@@ -1,5 +1,6 @@
 package ast.types;
 
+import ast.exps.Expression;
 import visitor.Visitor;
 
 import java.util.ArrayList;
@@ -43,6 +44,24 @@ public class RecordType extends AbstractType {
 
         for (Integer index : indexesToRemove) // Removes from highest to lowest
             recordFields.remove(index);
+    }
+
+    @Override
+    public int nob() {
+        int value = 0;
+        for (RecordField rf : recordFields) {
+            value += rf.getType().nob();
+        }
+        return value;
+    }
+
+    @Override
+    public Type access(String field, Expression fieldAccess) {
+        if (recordFields.stream().anyMatch(rf -> rf.getName().equals(field)))
+            return recordFields.stream().filter(rf -> rf.getName().equals(field))
+                    .toArray(RecordField[]::new)[0].getType();
+        return new ErrorType(fieldAccess.getLine(), fieldAccess.getColumn(),
+                "RecordType has no field named " + field);
     }
 
     @Override

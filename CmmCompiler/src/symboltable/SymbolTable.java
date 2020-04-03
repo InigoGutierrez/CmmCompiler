@@ -4,7 +4,7 @@ import java.util.*;
 import ast.defs.Definition;
 
 public class SymbolTable {
-	
+
 	private int scope=0;
 	private List<Map<String,Definition>> table;
 
@@ -17,14 +17,14 @@ public class SymbolTable {
 		scope++;
 		table.add(new HashMap<>());
 	}
-	
+
 	public void reset() {
 	    if (scope >= 0) {
 			table.remove(scope);
 			scope--;
 		}
 	}
-	
+
 	public boolean insert(Definition definition) {
 		if (existsInScope(scope, definition.getName())) {
 			return false;
@@ -33,7 +33,7 @@ public class SymbolTable {
 		table.get(scope).put(definition.getName(), definition);
 		return true;
 	}
-	
+
 	public Definition find(String id) {
 	    for ( int i = scope; i >= 0; i-- ) {
 			if (existsInScope(i, id))
@@ -50,3 +50,4 @@ public class SymbolTable {
 		return table.get(scope).containsKey(id);
 	}
 }
+

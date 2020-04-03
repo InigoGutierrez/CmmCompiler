@@ -1,0 +1,32 @@
+Implement the identification pass of the semantic analysis phase.
+Complete SymbolTable.java to make SymbolTableTest.java succeed.
+Then, implement the identification pass.
+Check the correct implementation showing input.txt with the introspector.
+The 4 error messages in input-wrong.txt must be prompted by the compiler.
+
+################################################################################
+
+Identification phase
+
+Error 1: Variable already defined (in the same scope always)
+Error 2: Variable not defined (same for not defined functions)
+
+Field: Definition definition in Variable
+
+Methods of symbol table: insert, find to deal with symbols; set, reset to deal with scopes
+
+The symbol table is a private attribute of the visitor.
+
+When created, the symbol table is implicitly in the global scope.
+
+When function definition is found: insert and set, then traverse child nodes (like FunctionType),
+Visitor handles traversing child nodes.
+
+Activity 1: Implement Symbol Table
+
+find returns null if nothing found
+
+Activity 2: Implement IdentificationVisitor
+
+Check that scope field has correct value
+

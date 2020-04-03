@@ -27,8 +27,8 @@ public class Main {
 
 		Program root = parser.program().ast;
 
-		new TypeCheckingVisitor().visit(root, null);
 		new IdentificationVisitor().visit(root, null);
+		new TypeCheckingVisitor().visit(root, null);
 
 		if (ErrorHandler.getInstance().anyError())
 			ErrorHandler.getInstance().showErrors(System.err);

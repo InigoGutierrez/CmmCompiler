@@ -7,3 +7,4 @@ public interface ASTNode {
     int getColumn();
     <TP,TR> TR accept(Visitor<TP,TR> visitor, TP param);
 }
+
