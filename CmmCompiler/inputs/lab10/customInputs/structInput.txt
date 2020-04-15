@@ -1,0 +1,28 @@
+struct {
+  int structInt;
+  char structChar;
+  double structDouble;
+  int structOtherInt;
+} firstStruct;
+
+struct {
+  int structInt;
+  char structChar;
+  double structDouble;
+  int structInt;
+} firstStruct;
+
+struct {
+  int[10] intVector;
+  double[5][4] doubleArray;
+} secondStruct;
+
+struct {
+  int firstOutput;
+  double secondOutput;
+} f(int firstArg, int[3] secondArg) {
+  firstStruct = secondStruct;
+}
+
+void main(){}
+

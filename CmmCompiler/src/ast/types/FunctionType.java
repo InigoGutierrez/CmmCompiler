@@ -39,7 +39,7 @@ public class FunctionType extends AbstractType {
     public Type parenthesis(Type[] argTypes, Expression funcInvocation) {
         if (args.size() == argTypes.length) {
             for (int i = 0; i < args.size(); i++) {
-                if (!args.get(i).equals(argTypes[i])) {
+                if (!args.get(i).getType().canAssign(argTypes[i])) {
                     Type wrongType = argTypes[i];
                     return new ErrorType(wrongType.getLine(), wrongType.getColumn(), "Wrong argument type");
                 }
@@ -56,10 +56,13 @@ public class FunctionType extends AbstractType {
 
     @Override
     public String toString() {
-        return "FunctionType{" +
-                "returnType=" + returnType +
-                ", args=" + args +
-                '}';
+        StringBuffer sb = new StringBuffer();
+        sb.append(returnType.toString());
+        sb.append("( ");
+        for (VarDefinition arg : args)
+            sb.append(arg.getType().toString() + " ");
+        sb.append(")");
+        return sb.toString();
     }
 }
 

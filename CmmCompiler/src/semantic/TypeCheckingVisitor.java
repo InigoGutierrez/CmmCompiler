@@ -139,7 +139,9 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
 
         Type assignedType = assignment.getAssigned().getType();
         Type valueType = assignment.getValue().getType();
-        if (!assignedType.canAssign(valueType)) {
+        if ( !assignedType.canAssign(valueType)
+            && !(assignedType instanceof ErrorType)
+            && !(valueType instanceof ErrorType) ) {
             new ErrorType(assignment.getLine(), assignment.getColumn(),
                     "Can't assign " + valueType + " to " + assignedType);
         }
@@ -152,7 +154,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
         read.getExp().accept(this, param);
         if (!read.getExp().getLvalue())
             new ErrorType(read.getLine(), read.getColumn(),
-                    String.format("Lvalue required."));
+                    String.format("Lvalue required"));
         return null;
     }
 
@@ -161,7 +163,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
         super.visit(ifStmnt, param);
         if (!ifStmnt.getCondition().getType().isBoolean()) {
             new ErrorType(ifStmnt.getCondition().getLine(), ifStmnt.getCondition().getColumn(),
-                    "Condition is not boolean.");
+                    "Condition is not boolean");
         }
         return null;
     }
@@ -171,7 +173,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
         super.visit(whileStmnt, param);
         if (!whileStmnt.getCondition().getType().isBoolean()) {
             new ErrorType(whileStmnt.getCondition().getLine(), whileStmnt.getCondition().getColumn(),
-                    "Condition is not boolean.");
+                    "Condition is not boolean");
         }
         return null;
     }

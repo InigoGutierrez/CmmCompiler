@@ -12,6 +12,7 @@ interface Type {
     arithmetic(Type other, Expression arithmetic): Type
     minus(Expression unaryMinus): Type
     parenthesis(Type[] argTypes, Expression funcInvocation): Type
+    isBuiltin(): boolean
     canAssign(Type valueType): boolean
     isBoolean(): boolean
     canReturn(Type typeToReturn): boolean

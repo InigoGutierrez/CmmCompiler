@@ -136,7 +136,7 @@ varDefinition returns [List<VarDefinition> ast = new ArrayList<VarDefinition>()]
 functionDefinition returns [FunctionDefinition ast]
     locals [List<VarDefinition> vdefs = new ArrayList<VarDefinition>(),
             List<Statement> stmnts = new ArrayList<Statement>()]:
-    rtype=type var=variable '(' ad=argumentsDefinition ')'
+    rtype=returnableType var=variable '(' ad=argumentsDefinition ')'
     { FunctionType ftype = new FunctionType($var.ast.getLine(), $var.ast.getColumn(), $rtype.ast, $ad.ast); }
     '{' ( vd=varDefinition { $vdefs.addAll($vd.ast); } )*
     (stmnt=statement { $stmnts.addAll($stmnt.ast); } )* '}'
@@ -146,10 +146,10 @@ functionDefinition returns [FunctionDefinition ast]
 
 argumentsDefinition returns [List<VarDefinition> ast = new ArrayList<VarDefinition>()]
     locals[int counter = 0]:
-    t1=type id1=ID
+    t1=primitiveType id1=ID
     { $ast.add(new VarDefinition($id1.getLine(), $id1.getCharPositionInLine()+1, $t1.ast, $id1.text, $counter));
         $counter++; }
-    ( ',' t2=type id2=ID
+    ( ',' t2=primitiveType id2=ID
     { $ast.add(new VarDefinition($id2.getLine(), $id2.getCharPositionInLine()+1, $t2.ast, $id2.text, $counter));
         $counter++; }
     )*
@@ -181,13 +181,22 @@ type returns [Type ast]
           $ast = result; }
     | word='struct' '{' ( rfd=recordFieldDefinition { $rfields.addAll($rfd.ast); } )* '}'
         { $ast = new RecordType($word.getLine(), $word.getCharPositionInLine()+1, $rfields); }
-    | voidType='void' { $ast = new VoidType($voidType.getLine(), $voidType.getCharPositionInLine()+1); }
+    | vt=voidType { $ast = $vt.ast; }
     ;
 
 primitiveType returns [Type ast]:
     word='int' { $ast = new IntType($word.getLine(), $word.getCharPositionInLine()+1); }
     | word='double' { $ast = new DoubleType($word.getLine(), $word.getCharPositionInLine()+1); }
     | word='char' { $ast = new CharType($word.getLine(), $word.getCharPositionInLine()+1); }
+    ;
+
+returnableType returns [Type ast]:
+    pt=primitiveType { $ast = $pt.ast; }
+    | vt=voidType { $ast = $vt.ast; }
+    ;
+
+voidType returns [VoidType ast]:
+    texp='void' { $ast = new VoidType($texp.getLine(), $texp.getCharPositionInLine()+1); }
     ;
 
 recordFieldDefinition returns [List<RecordField> ast = new ArrayList<RecordField>()]

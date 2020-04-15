@@ -27,4 +27,5 @@ Doubts:
 
 - How to accumulate the offset? Traversing?
 - AbstractCGVisitor? Is it useful now?
+  - No
 

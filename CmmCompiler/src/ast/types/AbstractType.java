@@ -56,10 +56,15 @@ public abstract class AbstractType extends AbstractASTNode implements Type {
 
     public Type parenthesis(Type[] argTypes, Expression funcInvocation) {
 		return new ErrorType(funcInvocation.getLine(), funcInvocation.getColumn(),
-				"Can't invoke a function with these arguments.");
+				"Can't invoke this with these arguments");
 	}
 
-    public boolean canAssign(Type valueType) {
+	@Override
+	public boolean isBuiltin() {
+		return false;
+	}
+
+	public boolean canAssign(Type valueType) {
     	return false;
 	}
 

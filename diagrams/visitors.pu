@@ -8,9 +8,9 @@ class IdentificationVisitor<Void, Void>
 class OffsetVisitor<Void, Void>
 
 abstract AbstractCGVisitor<TP, TR>
-class ValueCGVisitor (expressions)
-class AddressCGVisitor (variables)
-class ExecuteCGVisitor (statements)
+class ValueCGVisitor /'(expressions)'/
+class AddressCGVisitor /'(variables)'/
+class ExecuteCGVisitor /'(statements)'/
 
 interface Visitor {
     TR visit(Program program, TP param)
@@ -37,6 +37,9 @@ class IdentificationVisitor {
 }
 
 class OffsetVisitor {
+    Void visit(VarDefinition varDef, Void param)
+    Void visit(FunctionDefinition fDef, Void param)
+    Void visit(FunctionType funcType, Void param)
     Void visit(RecordType recordType, Void param)
 }
 
@@ -60,6 +63,12 @@ Visitor <|.. AbstractVisitor
 AbstractVisitor <|-- TypeCheckingVisitor
 AbstractVisitor <|-- IdentificationVisitor
 AbstractVisitor <|-- OffsetVisitor
+
+Visitor <|.. AbstractCGVisitor
+
+AbstractCGVisitor <|-- ValueCGVisitor
+AbstractCGVisitor <|-- AddressCGVisitor
+AbstractCGVisitor <|-- ExecuteCGVisitor
 
 @enduml
 

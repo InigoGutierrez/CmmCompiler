@@ -3,7 +3,7 @@ package ast.types;
 import ast.exps.Expression;
 import visitor.Visitor;
 
-public class IntType extends AbstractType {
+public class IntType extends AbstractBuiltinType {
 
     public IntType(int line, int column) {
         super(line, column);
@@ -20,13 +20,6 @@ public class IntType extends AbstractType {
     }
 
     @Override
-    public Type cast(Type castedTo, Expression cast) {
-        if (castedTo instanceof IntType)
-            return new IntType(cast.getLine(), cast.getColumn());
-        return super.cast(castedTo, cast);
-    }
-
-    @Override
     public Type compare(Type other, Expression comparison) {
         if (other instanceof IntType)
             return new IntType(comparison.getLine(), comparison.getColumn());
@@ -38,6 +31,23 @@ public class IntType extends AbstractType {
         if (other instanceof IntType)
             return new IntType(arithmetic.getLine(), arithmetic.getColumn());
         return super.compare(other, arithmetic);
+    }
+
+    @Override
+    public Type logical(Type other, Expression logical) {
+        if (other.isBoolean())
+            return new IntType(logical.getLine(), logical.getColumn());
+        return  super.logical(other, logical);
+    }
+
+    @Override
+    public Type minus(Expression unaryMinus) {
+        return new IntType(unaryMinus.getLine(), unaryMinus.getColumn());
+    }
+
+    @Override
+    public Type negate(Expression unaryNot) {
+        return new IntType(unaryNot.getLine(), unaryNot.getColumn());
     }
 
     @Override
@@ -61,3 +71,4 @@ public class IntType extends AbstractType {
 	}
 
 }
+

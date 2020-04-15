@@ -6,7 +6,6 @@ import ast.defs.VarDefinition;
 import ast.exps.*;
 import ast.statements.*;
 import ast.types.*;
-import visitor.Visitor;
 
 public abstract class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
 
@@ -18,6 +17,7 @@ public abstract class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
 
     @Override
     public TR visit(VarDefinition vDef, TP param) {
+        vDef.getType().accept(this, param);
         return null;
     }
 

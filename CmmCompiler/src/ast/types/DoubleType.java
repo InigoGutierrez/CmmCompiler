@@ -3,7 +3,7 @@ package ast.types;
 import ast.exps.Expression;
 import visitor.Visitor;
 
-public class DoubleType extends AbstractType {
+public class DoubleType extends AbstractBuiltinType {
 
     public DoubleType(int line, int column) {
         super(line, column);
@@ -20,13 +20,6 @@ public class DoubleType extends AbstractType {
     }
 
     @Override
-    public Type cast(Type castedTo, Expression cast) {
-        if (castedTo instanceof DoubleType)
-            return new DoubleType(cast.getLine(), cast.getColumn());
-        return super.cast(castedTo, cast);
-    }
-
-    @Override
     public Type compare(Type other, Expression comparison) {
         if (other instanceof DoubleType)
             return new IntType(comparison.getLine(), comparison.getColumn());
@@ -36,8 +29,13 @@ public class DoubleType extends AbstractType {
     @Override
     public Type arithmetic(Type other, Expression arithmetic) {
         if (other instanceof DoubleType)
-            return new IntType(arithmetic.getLine(), arithmetic.getColumn());
+            return new DoubleType(arithmetic.getLine(), arithmetic.getColumn());
         return super.compare(other, arithmetic);
+    }
+
+    @Override
+    public Type minus(Expression unaryMinus) {
+        return new DoubleType(unaryMinus.getLine(), unaryMinus.getColumn());
     }
 
     @Override

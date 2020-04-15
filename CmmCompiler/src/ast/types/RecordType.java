@@ -30,20 +30,15 @@ public class RecordType extends AbstractType {
                 if ( recordFields.get(i).getName().equals(recordFields.get(j).getName())
                     && !indexesToRemove.contains(j)) {
                     RecordField repeated = recordFields.get(j);
-                    StringBuilder message = new StringBuilder();
-                    message.append("Repeated record field name at ")
-                            .append(repeated.getLine())
-                            .append(":")
-                            .append(repeated.getColumn())
-                            .append(": ")
-                            .append(repeated.getName());
-                    repeated.setType(new ErrorType(repeated.getLine(), repeated.getColumn(), message.toString()));
+                    String message = String.format("Repeated record field name: %s", repeated.getName());
+                    repeated.setType(new ErrorType(repeated.getLine(), repeated.getColumn(), message));
 
                     indexesToRemove.addFirst(j);
                 }
 
         for (Integer index : indexesToRemove) // Removes from highest to lowest
             recordFields.remove(index);
+
     }
 
     @Override
@@ -61,7 +56,7 @@ public class RecordType extends AbstractType {
             return recordFields.stream().filter(rf -> rf.getName().equals(field))
                     .toArray(RecordField[]::new)[0].getType();
         return new ErrorType(fieldAccess.getLine(), fieldAccess.getColumn(),
-                "RecordType has no field named " + field);
+                "This expression is a struct but has no field named " + field);
     }
 
     @Override
@@ -71,9 +66,7 @@ public class RecordType extends AbstractType {
 
     @Override
     public String toString() {
-        return "Record{" +
-                "recordFields=" + recordFields +
-                '}';
+        return "Record" + recordFields;
     }
 }
 

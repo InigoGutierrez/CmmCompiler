@@ -1,0 +1,14 @@
+int[5] intVector;
+char[5] charVector;
+double[5] doubleVector;
+
+int[5][5] intArray;
+char[5][5] charArray;
+double[5][5] doubleArray;
+
+void f(int arg) {
+  intVector = intArray;
+}
+
+void main(){}
+

@@ -3,6 +3,9 @@
 !include type.pu
 !include astNode.pu
 
+abstract AbstractType
+abstract AbstractBuiltinType
+
 class VoidType
 class IntType
 class RealType
@@ -14,34 +17,60 @@ class RecordField
 class VarDefinition
 class ErrorType
 
-VarDefinition : String: name
-VarDefinition : int: offset
-ArrayType : int: size
-RecordField : String: name
-RecordField : int: offset
-ErrorType : String: message
+abstract AbstractType {
+{abstract}(Base behaviour for\neach interface method,\nthrowing errors)
+}
 
-ASTNode <|.. Type
+abstract AbstractBuiltinType {
+    isBuiltin(): boolean
+    cast(Type castedTo, Expression cast): Type
+}
 
-Type <|.. VoidType
-Type <|.. IntType
-Type <|.. RealType
-Type <|.. CharType
+class VarDefinition {
+    String: name
+    int: offset
+}
 
-Type <|.. ArrayType
-ArrayType --> "1" Type
+class ArrayType {
+    int: size
+}
 
-Type <|. FunctionType
+class RecordField {
+    String: name
+}
+
+class RecordField {
+    int: offset
+}
+
+class ErrorType {
+    String: message
+}
+
+ASTNode <|-- Type
+Type <|.. AbstractType
+AbstractType <|-- AbstractBuiltinType
+
+VoidType --|> AbstractType
+
+AbstractBuiltinType <|-- IntType
+AbstractBuiltinType <|-- RealType
+AbstractBuiltinType <|-- CharType
+
+AbstractType <|-- ArrayType
+Type "1" <-- ArrayType
+
+AbstractType <|-- FunctionType
 Type "1" <--o FunctionType : return
 VarDefinition "0..*" <--o FunctionType : arguments
 Type "1" <--o  VarDefinition
 
-Type <|.. RecordType
+AbstractType <|-- RecordType
 RecordType o--> "1..*" RecordField
 ASTNode <|.. RecordField
 RecordField --> "1" Type
 
-Type <|.. ErrorType
+AbstractType <|-- ErrorType
 
 @enduml
 

@@ -3,7 +3,7 @@ package ast.types;
 import ast.exps.Expression;
 import visitor.Visitor;
 
-public class CharType extends AbstractType {
+public class CharType extends AbstractBuiltinType {
 
     public CharType(int line, int column) {
         super(line, column);
@@ -17,13 +17,6 @@ public class CharType extends AbstractType {
     @Override
     public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP param) {
         return visitor.visit(this, param);
-    }
-
-    @Override
-    public Type cast(Type castedTo, Expression cast) {
-        if (castedTo instanceof CharType)
-            return new CharType(cast.getLine(), cast.getColumn());
-        return super.cast(castedTo, cast);
     }
 
     @Override
@@ -56,3 +49,4 @@ public class CharType extends AbstractType {
 	}
 
 }
+

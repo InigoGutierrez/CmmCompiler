@@ -13,6 +13,7 @@ public interface Type extends ASTNode {
     Type arithmetic(Type other, Expression arithmetic);
     Type minus(Expression unaryMinus);
     Type parenthesis(Type[] argTypes, Expression funcInvocation);
+    boolean isBuiltin();
     boolean canAssign(Type valueType);
     boolean isBoolean();
     boolean canReturn(Type typeToReturn);

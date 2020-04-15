@@ -11,3 +11,4 @@ public interface Definition extends ASTNode {
     void setScope(int scope);
 
 }
+

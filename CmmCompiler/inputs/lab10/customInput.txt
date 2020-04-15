@@ -1,0 +1,49 @@
+int i;
+double r;
+int i;
+char i;
+
+struct {
+  int structInt;
+  char structChar;
+  double structDouble;
+  int structOtherInt;
+} firstStruct;
+
+struct {
+  int structInt;
+  char structChar;
+  double structDouble;
+  int structInt;
+} firstStruct;
+
+struct {} emptyStruct;
+
+int f() {
+
+  int localInt;
+  char localChar;
+  double localDouble;
+
+  char localInt;
+  int localChar;
+  double localDouble;
+
+  struct {
+    int structInt;
+    char structChar;
+    double structDouble;
+    int structOtherInt;
+  } firstStruct;
+
+  struct {
+    int structInt;
+    char structChar;
+    double structDouble;
+    int structOtherInt;
+  } secondStruct;
+
+}
+
+void main() {}
+
