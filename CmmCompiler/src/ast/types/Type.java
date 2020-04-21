@@ -18,5 +18,7 @@ public interface Type extends ASTNode {
     boolean isBoolean();
     boolean canReturn(Type typeToReturn);
     int nob();
+    String convertTo(Type targetType);
+    String suffix();
 }
 

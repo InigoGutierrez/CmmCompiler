@@ -5,16 +5,17 @@ import ast.defs.*;
 import ast.exps.*;
 import ast.statements.*;
 import ast.types.*;
+import exceptions.InvalidVisitException;
 
 public interface Visitor<TP, TR> {
 
-    public TR visit(Program program, TP param);
-    public TR visit(VarDefinition vDef, TP param);
-    public TR visit(FunctionDefinition fDef, TP param);
-    public TR visit(Arithmetic arith, TP param);
-    public TR visit(CastExpr castExpr, TP param);
-    public TR visit(IntLiteral intLit, TP param);
-    public TR visit(DoubleLiteral doubleLit, TP param);
+    public TR visit(Program program, TP param) throws InvalidVisitException;
+    public TR visit(VarDefinition vDef, TP param) throws InvalidVisitException;
+    public TR visit(FunctionDefinition fDef, TP param) throws InvalidVisitException;
+    public TR visit(Arithmetic arith, TP param) throws InvalidVisitException;
+    public TR visit(CastExpr castExpr, TP param) throws InvalidVisitException;
+    public TR visit(IntLiteral intLit, TP param) throws InvalidVisitException;
+    public TR visit(DoubleLiteral doubleLit, TP param) throws InvalidVisitException;
     public TR visit(CharLiteral charLit, TP param);
     public TR visit(Comparison comp, TP param);
     public TR visit(FieldAccessor fieldAccessor, TP param);

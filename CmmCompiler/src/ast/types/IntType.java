@@ -66,6 +66,18 @@ public class IntType extends AbstractBuiltinType {
     }
 
     @Override
+    public String convertTo(Type targetType) {
+        if (targetType instanceof IntType)
+                return "";
+        return suffix() + "2" + targetType.suffix();
+    }
+
+    @Override
+    public String suffix() {
+        return "i";
+    }
+
+    @Override
 	public String toString() {
 		return "int";
 	}

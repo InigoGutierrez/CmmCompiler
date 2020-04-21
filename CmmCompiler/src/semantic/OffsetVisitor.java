@@ -1,4 +1,4 @@
-package codeGen;
+package semantic;
 
 import ast.defs.FunctionDefinition;
 import ast.defs.VarDefinition;

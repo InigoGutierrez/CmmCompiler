@@ -1,0 +1,64 @@
+Cast: exp1 -> type exp2
+R: exp1.type = exp2.type.cast(type, exp1) // exp1 to get line and col
+
+UnaryNot: exp1 -> exp2
+R: exp1.type = exp2.type.negate(exp1)
+
+Comparison: exp1 -> exp2 exp3
+R: exp1.type = exp2.type.compare(exp3.type, exp1) // exp3.type to check errors
+
+Logical: exp1 -> exp2 exp3
+R: exp1.type = exp2.type.logical(exp3.type, exp1)
+
+FieldAccessor: exp1 -> exp2 field
+R: exp1.type = exp2.type.access(field, exp1)
+
+Indexing: exp1 -> exp2 exp3
+R: exp1.type = exp2.type.indexing(exp3.type, exp1)
+
+IntLiteral: exp1 -> value
+R: exp1.type = new IntType()
+
+RealLiteral: exp1 -> value
+R: exp1.type = new RealType()
+
+CharLiteral: exp1 -> value
+R: exp1.type = new CharType()
+
+Arithmetic: exp1 -> exp2 (+|-|*|/) exp3
+R: exp1.type = exp2.type.arithmetic(exp3.type, exp1)
+
+UnaryMinus: exp1 -> exp2
+R: exp1.type = exp2.type.minus(exp1)
+
+FuncInvocation: exp1 -> exp2 exp3*
+R: exp1.type = exp2.type.parenthesis(
+    exp3.stream().map(e -> e.type).toArray(Type[]::new), exp1)
+
+Variable: exp
+R: exp.type = exp.definition.type
+
+Assignment: stmnt -> exp1 = exp2
+R: if (!exp1.type.canAssign(exp2.type))
+    new ErrorType(exp2.line, exp2.column,
+     "Can't assign " + exp2.type + " to " + exp1.type);
+
+IfStmnt: stmnt1 -> exp stmnt2* stmnt3*
+R: if (!exp.type.isBoolean())
+    new ErrorType(exp.line, exp.column,
+      "Type " + exp.type + " is not Boolean.");
+
+WhileStmnt: stmnt1 -> exp stmnt2*
+R: if (!exp.type.isBoolean())
+    new ErrorType(exp.line, exp.column,
+      "Type " + exp.type + " is not Boolean.");
+
+Return: stmnt -> exp
+R: if (!stmnt.returnType.canReturn(exp.type))
+    new ErrorType(exp.line, exp.column,
+      "Can't return type " + exp.type + ", should be " + stmnt.returnType);
+
+FunctionDefinition: funcDef -> varDef* stmnt*
+R: for (Statement stmnt : stmnt*)
+    stmnt.returnType = funcDef.type
+

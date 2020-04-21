@@ -17,6 +17,10 @@ public class DoubleLiteral extends AbstractExpression {
         return visitor.visit(this, param);
     }
 
+    public double getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return "DoubleLiteral{" +

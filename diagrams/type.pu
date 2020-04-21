@@ -17,6 +17,7 @@ interface Type {
     isBoolean(): boolean
     canReturn(Type typeToReturn): boolean
     nob(): int
+    suffix(): String
 }
 
 @enduml

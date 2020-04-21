@@ -1,4 +1,4 @@
-package codeGen;
+package codegeneration;
 
 import ast.Program;
 import ast.defs.FunctionDefinition;
@@ -6,7 +6,6 @@ import ast.defs.VarDefinition;
 import ast.exps.*;
 import ast.statements.*;
 import ast.types.*;
-import visitor.AbstractVisitor;
 import visitor.Visitor;
 
 public abstract class AbstractCGVisitor<TP, TR> implements Visitor<TP, TR> {

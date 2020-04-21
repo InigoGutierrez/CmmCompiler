@@ -26,6 +26,13 @@ public class FunctionType extends AbstractType {
         return new ArrayList<>(args);
     }
 
+    public int getTotalParamOffset() {
+        if (args.size() == 0)
+            return 4;
+        VarDefinition lastVarDef = args.get(args.size()-1);
+        return lastVarDef.getOffset() + lastVarDef.getType().nob();
+    }
+
     @Override
     public int nob() {
         int size = 0;

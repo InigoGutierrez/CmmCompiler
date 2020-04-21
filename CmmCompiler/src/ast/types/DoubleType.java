@@ -49,6 +49,20 @@ public class DoubleType extends AbstractBuiltinType {
     }
 
     @Override
+    public String convertTo(Type targetType) {
+        if (targetType instanceof DoubleType)
+                return "";
+        if (targetType instanceof CharType)
+            return "f2i\ni2b";
+        return suffix() + "2" + targetType.suffix();
+    }
+
+    @Override
+    public String suffix() {
+        return "f";
+    }
+
+    @Override
 	public String toString() {
 		return "double";
 	}

@@ -44,6 +44,20 @@ public class CharType extends AbstractBuiltinType {
     }
 
     @Override
+    public String convertTo(Type targetType) {
+        if (targetType instanceof CharType)
+            return "";
+        if (targetType instanceof DoubleType)
+            return "b2i\ni2f";
+        return suffix() + "2" + targetType.suffix();
+    }
+
+    @Override
+    public String suffix() {
+        return "b";
+    }
+
+    @Override
 	public String toString() {
 		return "char";
 	}

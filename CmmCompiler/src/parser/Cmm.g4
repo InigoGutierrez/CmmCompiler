@@ -222,7 +222,7 @@ MULTILINE_COMMENT: '/*' .*? '*/' -> skip
                  ;
 
 fragment
-DECIMAL_PART: [0-9]* [1-9]
+DECIMAL_PART: [0-9]* [0-9]
             ;
 
 fragment

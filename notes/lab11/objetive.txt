@@ -1,11 +1,12 @@
 Generate MAPL code for:
-- Programs
-- Write statements
-- Read statements
-- All the constants
-- Variables
-- Assignments
-- Arithmetic, comparison and logical expressions
-- Definition of global and local variables
-- Definition of functions
-- Casts
+- [X] Programs
+- [X] Write statements
+- [X] Read statements
+- [X] All the constants
+- [X] Variables
+- [X] Assignments
+- [X] Arithmetic, comparison and logical expressions
+- [X] Definition of global and local variables
+- [X] Definition of functions
+- [X] Casts
+

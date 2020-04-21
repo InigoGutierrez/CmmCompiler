@@ -1,0 +1,42 @@
+value[[IntLiteral: expression -> INT_CONSTANT]] = "pushi" expression.value
+
+Each code function is a visitor
+in the codegeneration package
+
+AddressCGVisitor: Variables, indexing, fieldAccess (things with LValue true)
+ValueCGVisitor: Expressions
+ExecuteCGVisitor: Program, statements, definitions (things that are not
+expression)
+
+The default implementation is throwing an exception
+
+Pass output.txt to compiler
+
+
+Code template for arithmetic: (Note that char and char return int)
+
+value[[Arithmetic: exp1 -> exp2 (+|-|*|/) exp3]] =
+  value[[exp2]];
+  value[[exp3]];
+  switch exp1.operator {
+    add/sub/mul/div + exp1.type.suffix() break;
+  }
+
+Better move the code to a cg object:
+cg.arithmetic(expression1.operator, expression1.type);
+
+CodeGenerator
+-outputFile: FileWriter
++arithmetic(operator:String, type:Type)
++push(int)
++load(type:Type)
+
+Activities:
+
+- Write code templates as comments:
+  - Address in AddressCGVisitor.java
+  - Value in ValueCGVisitor.java
+  - Execute in ExecuteCGVisitor.java
+- Implement in compiler (not enough time)
+The productions must be following the AST class diagram
+

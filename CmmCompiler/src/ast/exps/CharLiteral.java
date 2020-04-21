@@ -17,6 +17,10 @@ public class CharLiteral extends AbstractExpression {
         return visitor.visit(this, param);
     }
 
+    public char getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return "CharLiteral{" +

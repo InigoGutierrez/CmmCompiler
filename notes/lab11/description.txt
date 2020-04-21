@@ -12,12 +12,12 @@ Push instructions
 
 Load and store
 
-	loadb, load[i], loadf 		Pop a memory address off the stack (2 bytes). 
+	loadb, load[i], loadf 		Pop a memory address off the stack (2 bytes).
 					Then, pushe onto the stack the content (1, 2 or 4 bytes) of
 					the address popped in the previous step
-	storeb, store[i], storef 	Pop from the stack 1, 2 or 4 bytes. 
-					Then, pop from the stack a memory address (2 bytes). 
-					The content of the memory address is replaced with the value 
+	storeb, store[i], storef 	Pop from the stack 1, 2 or 4 bytes.
+					Then, pop from the stack a memory address (2 bytes).
+					The content of the memory address is replaced with the value
 					popped in the first step
 
 Popping and duplicating values on the stack
@@ -60,29 +60,28 @@ Conversions
 	f2i 	Pops one real number and pushes it as an integer
 	i2b 	Pops one integer and pushes it as a character
 
-Jumps
+Jump
 
 	<id>:		Defines one label for jumps and invocations (functions)
 	jmp <label> 	Jumps (unconditionally) to the label specified as a parameter.
 	jz  <label> 	Pops one integer and jumps to the label if the popped integer is zero.
 	jnz <label> 	Pops one integer and jumps to the label if the popped integer is not zero.
-	
+
 
 Functions
 
 	call <id> 		Invokes the <id> function
-	enter <int_constant> 	Allocates <int_constant> bytes on the top of the stack 
-	ret <int_constant>,	Returns from a function invocation. 
-	    <int_constant>, 	The first constant represents the bytes to return; 
-            <int_constant> 	the second one, the bytes of all the local variables; 
+	enter <int_constant> 	Allocates <int_constant> bytes on the top of the stack
+	ret <int_constant>,	Returns from a function invocation.
+	    <int_constant>, 	The first constant represents the bytes to return;
+            <int_constant> 	the second one, the bytes of all the local variables;
 				and the last one, the bytes of all the arguments.
 	halt 			Terminates program execution
 
 Debugging info
 
-	#source <string_constant> 	Allows MAPL to associate assembly code 
+	#source <string_constant> 	Allows MAPL to associate assembly code
 					to the high-level source program
-	#line <INT_CONSTANT> 		Allows MAPL IDE associate the assembly code 
+	#line <INT_CONSTANT> 		Allows MAPL IDE associate the assembly code
 					corresponding to each high-level statement
-
 

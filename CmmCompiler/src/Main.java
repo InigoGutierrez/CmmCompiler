@@ -1,5 +1,7 @@
 import ast.Program;
-import codeGen.OffsetVisitor;
+import codegeneration.CodeGenerator;
+import codegeneration.ExecuteCGVisitor;
+import semantic.OffsetVisitor;
 import errorhandler.ErrorHandler;
 import introspector.model.IntrospectorModel;
 import introspector.view.IntrospectorTree;
@@ -10,11 +12,13 @@ import parser.gen.CmmParser;
 import semantic.IdentificationVisitor;
 import semantic.TypeCheckingVisitor;
 
+import java.io.FileWriter;
+
 public class Main {
 
 	public static void main(String... args) throws Exception {
-		   if (args.length<1) {
-		        System.err.println("Please, pass me the input file.");
+		   if (args.length<2) {
+		        System.err.println("Please, pass me both the input file and the destination of output.");
 		        return;
 		    }
 
@@ -32,8 +36,16 @@ public class Main {
 		new TypeCheckingVisitor().visit(root, null);
 		new OffsetVisitor().visit(root, null);
 
-		if (ErrorHandler.getInstance().anyError())
+		if (ErrorHandler.getInstance().anyError()) {
 			ErrorHandler.getInstance().showErrors(System.err);
+		}
+		else {
+			CodeGenerator cg = new CodeGenerator(args[1]);
+			cg.writeCode("#source \"" + args[0] + "\"");
+			new ExecuteCGVisitor().visit(root, cg);
+			cg.close();
+		}
+
 
 	IntrospectorModel model = new IntrospectorModel("Root", root);
 		new IntrospectorTree("Tree", model);
