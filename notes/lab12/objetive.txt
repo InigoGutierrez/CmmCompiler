@@ -1,0 +1,7 @@
+Generate code for:
+- [o] While statements
+- [o] If statements
+- [o] The . and [] operators
+- [o] Function invocations
+- [o] Return statements
+

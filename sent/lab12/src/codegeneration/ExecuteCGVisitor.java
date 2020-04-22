@@ -33,11 +33,10 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<CodeGenerator, Void> {
         cg.call("main");
         cg.halt();
 
-        var fDefs = program.getDefs().stream().filter( (def) -> def instanceof FunctionDefinition );
+        var fDefs = program.getDefs().stream().filter( (def) -> def instanceof VarDefinition );
         fDefs.forEach( (fdef) -> fdef.accept(this, cg) );
 
         return null;
-
     }
 
     // VarDefinition

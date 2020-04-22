@@ -1,0 +1,23 @@
+# Notes lab 12
+
+FieldAcces: address and value
+Return: execute
+FunctionInvocation: execute and value
+
+Correct production:
+
+address[[]] =
+
+address[[FieldAccess: exp1 -> exp2 ID]] =   // exp1 must be a final production
+  address[[exp2]];
+  <pushi> ex2.getType().getField(ID).getOffset();
+  <addi>
+
+value[[FieldAccess: exp1 -> exp2 ID]] =
+  address[[exp1]];
+  <load> exp1.getType().suffix();
+
+Adding 2 expressions, must be same type. Same for comparison.
+
+For characters, only arithmetic.
+
