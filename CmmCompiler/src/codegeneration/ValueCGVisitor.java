@@ -58,6 +58,10 @@ public class ValueCGVisitor extends AbstractCGVisitor<CodeGenerator, Void> {
     /*
     value[[Arithmetic: exp1 -> exp2 (+|-|*|/) exp3]] =
         value[[exp2]];
+        if (! exp2.getType() instanceof exp1.getType())
+            exp2.getType().suffix() <2> exp1.getType().suffix();
+        if (! exp3.getType() instanceof exp1.getType())
+            exp3.getType().suffix() <2> exp1.getType().suffix();
         value[[exp3]];
         switch exp1.getOperation() {
             case "+":
@@ -163,13 +167,28 @@ public class ValueCGVisitor extends AbstractCGVisitor<CodeGenerator, Void> {
     // UnaryNot
     /*
     value[[UnaryNot: exp1 -> exp2]] =
-        value[[exp]];
+        value[[exp2]];
         <not>
      */
     @Override
     public Void visit(UnaryNot uNot, CodeGenerator cg) {
         uNot.getExpToNegate().accept(this, cg);
         cg.not();
+        return null;
+    }
+
+    // UnaryMinus
+    /*
+    value[[UnaryMinus: exp1 -> exp2]] =
+        value[[exp2]];
+        <push> exp1.getType().suffix() < -1>;
+        <mul> exp1.getType().suffix();
+     */
+    @Override
+    public Void visit(UnaryMinus uMinus, CodeGenerator cg) {
+        uMinus.getExp().accept(this, cg);
+        cg.push(uMinus.getType(), -1);
+        cg.mul(uMinus.getType());
         return null;
     }
 

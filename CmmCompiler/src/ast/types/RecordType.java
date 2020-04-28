@@ -22,7 +22,7 @@ public class RecordType extends AbstractType {
     }
 
     public RecordField getField(String fieldName) {
-        for (int i = 0; i < recordFields.size()-1; i++ ) {
+        for (int i = 0; i < recordFields.size(); i++ ) {
             if (recordFields.get(i).getName().equals(fieldName))
                     return recordFields.get(i);
         }

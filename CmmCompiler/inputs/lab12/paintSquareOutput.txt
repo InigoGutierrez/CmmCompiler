@@ -1,0 +1,123 @@
+#source "C:\Users\IGUTIERREZ\Desktop\IIS\DLP\labs\gitRepo\CmmCompiler\inputs\lab12\paintSquare.txt"
+call main
+halt
+ paint:
+    ' * Parameters
+    ' * int h (offset 7)
+    ' * int w (offset 5)
+    ' * char brush (offset 4)
+    ' * Local variables
+    ' * int i (offset -2)
+    ' * int j (offset -4)
+    enter 4
+    push bp
+    pushi -2
+    addi
+    pushi 0
+    storei
+    ' * While
+    label0:
+    ' * Condition
+    push bp
+    pushi -2
+    addi
+    loadi
+    push bp
+    pushi 7
+    addi
+    loadi
+    lti
+    jz label1
+    ' * While body
+    push bp
+    pushi -4
+    addi
+    pushi 0
+    storei
+    ' * While
+    label2:
+    ' * Condition
+    push bp
+    pushi -4
+    addi
+    loadi
+    push bp
+    pushi 5
+    addi
+    loadi
+    lti
+    jz label3
+    ' * While body
+    ' * Write
+    push bp
+    pushi 4
+    addi
+    loadb
+    outb
+    push bp
+    pushi -4
+    addi
+    push bp
+    pushi -4
+    addi
+    loadi
+    pushi 1
+    addi
+    storei
+    jmp label2
+    label3:
+    ' * Write
+    pushb 10
+    outb
+    push bp
+    pushi -2
+    addi
+    push bp
+    pushi -2
+    addi
+    loadi
+    pushi 1
+    addi
+    storei
+    jmp label0
+    label1:
+    ret 0, 4, 5
+ main:
+    ' * Parameters
+    ' * Local variables
+    ' * char brush (offset -1)
+    ' * int h (offset -3)
+    ' * int w (offset -5)
+    enter 5
+    ' * Read
+    push bp
+    pushi -3
+    addi
+    ini
+    storei
+    ' * Read
+    push bp
+    pushi -5
+    addi
+    ini
+    storei
+    ' * Read
+    push bp
+    pushi -1
+    addi
+    inb
+    storeb
+    push bp
+    pushi -3
+    addi
+    loadi
+    push bp
+    pushi -5
+    addi
+    loadi
+    push bp
+    pushi -1
+    addi
+    loadb
+    call paint
+    ret 0, 5, 0

@@ -55,7 +55,7 @@ public class ArrayType extends AbstractType {
 
     @Override
     public String toString() {
-        return type.toString() + "[]";
+        return String.format("[%d,%s]", size, type.toString());
     }
 }
 

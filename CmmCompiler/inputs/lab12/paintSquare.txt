@@ -1,0 +1,29 @@
+void paint(int h, int w, char brush) {
+
+	int i, j;
+
+	i = 0;
+	while (i < h) {
+		j = 0;
+		while (j < w) {
+			write brush;
+			j = j + 1;
+		}
+		write '\n';
+		i = i + 1;
+	}
+
+}
+
+void main() {
+	// Declare local variables
+	char brush;
+	int h, w;
+
+	// Read params
+	read h, w, brush;
+
+	// Call the paint function
+	paint(h, w, brush);
+}
+

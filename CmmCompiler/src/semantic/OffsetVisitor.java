@@ -9,26 +9,28 @@ import visitor.AbstractVisitor;
 
 public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
 
-    int accOffset;
+    int globalOffset;
+    int localOffset;
 
     public OffsetVisitor() {
-        accOffset = 0;
+        globalOffset = 0;
+        localOffset = 0;
     }
 
     @Override
     public Void visit(VarDefinition vDef, Boolean param) {
         super.visit(vDef, param);
         if (vDef.getScope() == 0) {
-            vDef.setOffset(accOffset);
-            accOffset += vDef.getType().nob();
+            vDef.setOffset(globalOffset);
+            globalOffset += vDef.getType().nob();
         }
         else if (param != null && param.booleanValue()) {
-            vDef.setOffset(4 + accOffset);
-            accOffset += vDef.getType().nob();
+            vDef.setOffset(4 + localOffset);
+            localOffset += vDef.getType().nob();
         }
         else {
-            accOffset += vDef.getType().nob();
-            vDef.setOffset(-accOffset);
+            localOffset += vDef.getType().nob();
+            vDef.setOffset(-localOffset);
         }
         return null;
     }
@@ -36,7 +38,7 @@ public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
     @Override
     public Void visit(FunctionDefinition fDef, Boolean param) {
         fDef.getType().accept(this, param);
-        accOffset = 0;
+        localOffset = 0;
         fDef.getVarDefs().forEach(varDef -> varDef.accept(this, param));
         fDef.getStatements().forEach(stmnt -> stmnt.accept(this, param));
         return null;
@@ -44,7 +46,7 @@ public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
 
     @Override
     public Void visit(FunctionType functionType, Boolean param) {
-        accOffset = 0;
+        localOffset = 0;
         functionType.getReturnType().accept(this, param);
         for (int i = functionType.getArgs().size()-1; i >= 0; i--) {
             functionType.getArgs().get(i).accept(this, true);

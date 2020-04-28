@@ -9,7 +9,6 @@ import ast.types.Type;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 
 public class CodeGenerator {
 
@@ -24,16 +23,17 @@ public class CodeGenerator {
     }
 
     public void incScope() {
-        indentation += "  ";
+        indentation += "    ";
     }
 
     public void decScope() {
-        indentation = indentation.substring(0, indentation.length()-2);
+        indentation = indentation.substring(0, indentation.length()-4);
     }
 
     public int getLabel(int quantity) {
+        int valueToReturn = labelIndex;
         labelIndex += quantity;
-        return labelIndex;
+        return valueToReturn;
     }
 
     public void close() {
@@ -61,6 +61,10 @@ public class CodeGenerator {
         writeCode("pushf " + value);
     }
 
+    public void push(Type type, int value) {
+        writeCode(String.format("push%s %d", type.suffix(), value));
+    }
+
     public void in(Type type) {
         writeCode("in" + type.suffix());
     }
@@ -77,12 +81,22 @@ public class CodeGenerator {
         writeCode("load" + type.suffix());
     }
 
+    public void pop(Type type) {
+        writeCode("pop" + type.suffix());
+    }
     public void addi() {
         writeCode("addi");
     }
 
     public void muli() {
         writeCode("muli");
+    }
+
+    public void mul(Type type) {
+        writeCode("mul" + type.suffix());
+    }
+    public void jmp(int labelNumber) {
+        writeCode(String.format("jmp label%d", labelNumber));
     }
 
     public void jz(int labelNumber) {
@@ -94,7 +108,11 @@ public class CodeGenerator {
     }
 
     public void label(int labelNumber) {
-        writeCode(String.format("label%d", labelNumber));
+        writeCode(String.format("label%d:", labelNumber));
+    }
+
+    public void ret(int bytesReturn, int bytesLocals, int bytesParams) {
+        writeCode(String.format("ret %d, %d, %d", bytesReturn, bytesLocals, bytesParams));
     }
 
     public void halt() {
@@ -113,14 +131,12 @@ public class CodeGenerator {
         writeCode(" " + name + ":");
     }
 
-    public void parameters(List<VarDefinition> params) {
+    public void commentParameters() {
         writeCode("' * Parameters");
-        params.forEach( (p) -> varDefinition(p) );
     }
 
-    public void localVariables(List<VarDefinition> localVars) {
+    public void commentLocalVariables() {
         writeCode("' * Local variables");
-        localVars.forEach( (p) -> varDefinition(p) );
     }
 
     public void enter(int bytes) {
@@ -209,7 +225,7 @@ public class CodeGenerator {
         writeCode("not");
     }
 
-    public void variableAddress(Variable var, int scope) {
+    public void variableAddress(Variable var) {
         int offset = ((VarDefinition) var.getDefinition()).getOffset();
         if (var.getDefinition().getScope() == 0)
             writeCode("pusha " + offset);
@@ -239,12 +255,27 @@ public class CodeGenerator {
         writeCode("' * While");
     }
 
+    public void commentIfStart() {
+        writeCode("' * If");
+    }
     public void commentCondition() {
         writeCode("' * Condition");
     }
 
     public void commentWhileBody() {
         writeCode("' * While body");
+    }
+
+    public void commentIfBody() {
+        writeCode("' * If branch body");
+    }
+
+    public void commentElseBody() {
+        writeCode("' * Else branch body");
+    }
+
+    public void commentReturn() {
+        writeCode("' * Return");
     }
 
     public void writeCode(String code) {

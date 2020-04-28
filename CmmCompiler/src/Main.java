@@ -1,6 +1,7 @@
 import ast.Program;
 import codegeneration.CodeGenerator;
 import codegeneration.ExecuteCGVisitor;
+import codegeneration.ExecuteCGVisitorParam;
 import semantic.OffsetVisitor;
 import errorhandler.ErrorHandler;
 import introspector.model.IntrospectorModel;
@@ -41,14 +42,15 @@ public class Main {
 		}
 		else {
 			CodeGenerator cg = new CodeGenerator(args[1]);
+			ExecuteCGVisitorParam param = new ExecuteCGVisitorParam(cg);
 			cg.writeCode("#source \"" + args[0] + "\"");
-			new ExecuteCGVisitor().visit(root, cg);
+			new ExecuteCGVisitor().visit(root, param);
 			cg.close();
 		}
 
+		//IntrospectorModel model = new IntrospectorModel("Root", root);
+		//new IntrospectorTree("Tree", model);
 
-	IntrospectorModel model = new IntrospectorModel("Root", root);
-		new IntrospectorTree("Tree", model);
 	}
 
 }

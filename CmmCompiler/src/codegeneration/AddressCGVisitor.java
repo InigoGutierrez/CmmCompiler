@@ -3,6 +3,7 @@ package codegeneration;
 import ast.exps.FieldAccessor;
 import ast.exps.Indexing;
 import ast.exps.Variable;
+import ast.types.ArrayType;
 import ast.types.RecordType;
 
 public class AddressCGVisitor extends AbstractCGVisitor<CodeGenerator, Void> {
@@ -26,7 +27,7 @@ public AddressCGVisitor() {
      */
     @Override
     public Void visit(Variable var, CodeGenerator cg) {
-        cg.variableAddress(var, var.getDefinition().getScope());
+        cg.variableAddress(var);
         return null;
     }
 
@@ -59,7 +60,8 @@ public AddressCGVisitor() {
     public Void visit(Indexing indexing, CodeGenerator cg) {
         indexing.getIndexed().accept(this, cg);
         indexing.getIndex().accept(new ValueCGVisitor(), cg);
-        cg.push(indexing.getIndexed().getType().nob());
+        ArrayType arrayType = (ArrayType) indexing.getIndexed().getType();
+        cg.push(arrayType.getType().nob());
         cg.muli();
         cg.addi();
         return null;

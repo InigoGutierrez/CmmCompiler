@@ -1,0 +1,71 @@
+#source "C:\Users\IGUTIERREZ\Desktop\IIS\DLP\labs\gitRepo\CmmCompiler\inputs\lab12\power.txt"
+' * int base (offset 0)
+' * int exp (offset 2)
+call main
+halt
+ main:
+    ' * Parameters
+    ' * Local variables
+    ' * int result (offset -2)
+    ' * int i (offset -4)
+    enter 4
+    ' * Read
+    pusha 0
+    ini
+    storei
+    ' * Read
+    pusha 2
+    ini
+    storei
+    push bp
+    pushi -2
+    addi
+    pushi 1
+    storei
+    push bp
+    pushi -4
+    addi
+    pushi 0
+    storei
+    ' * While
+    label0:
+    ' * Condition
+    push bp
+    pushi -4
+    addi
+    loadi
+    pusha 2
+    loadi
+    lti
+    jz label1
+    ' * While body
+    push bp
+    pushi -2
+    addi
+    push bp
+    pushi -2
+    addi
+    loadi
+    pusha 0
+    loadi
+    muli
+    storei
+    push bp
+    pushi -4
+    addi
+    push bp
+    pushi -4
+    addi
+    loadi
+    pushi 1
+    addi
+    storei
+    jmp label0
+    label1:
+    ' * Write
+    push bp
+    pushi -2
+    addi
+    loadi
+    outi
+    ret 0, 4, 0

@@ -1,0 +1,187 @@
+#source "C:\Users\IGUTIERREZ\Desktop\IIS\DLP\labs\gitRepo\CmmCompiler\inputs\lab12\fibonacci.txt"
+' * int pos (offset 0)
+call main
+halt
+ f:
+    ' * Parameters
+    ' * int pos (offset 4)
+    ' * Local variables
+    enter 0
+    ' * If
+    ' * Condition
+    push bp
+    pushi 4
+    addi
+    loadi
+    pushi 1
+    lti
+    jz label0
+    ' * If branch body
+    ' * Write
+    pushb 112
+    outb
+    ' * Write
+    pushb 111
+    outb
+    ' * Write
+    pushb 115
+    outb
+    ' * Write
+    pushb 32
+    outb
+    ' * Write
+    pushb 60
+    outb
+    ' * Write
+    pushb 32
+    outb
+    ' * Write
+    pushb 49
+    outb
+    ' * Return
+    pushi 1
+    pushi -1
+    muli
+    ret 2, 0, 2
+    jmp label1
+    label0:
+    ' * Else branch body
+    label1:
+    ' * If
+    ' * Condition
+    push bp
+    pushi 4
+    addi
+    loadi
+    pushi 1
+    eqi
+    push bp
+    pushi 4
+    addi
+    loadi
+    pushi 2
+    eqi
+    or
+    jz label2
+    ' * If branch body
+    ' * Return
+    pushi 1
+    ret 2, 0, 2
+    jmp label3
+    label2:
+    ' * Else branch body
+    label3:
+    ' * Return
+    push bp
+    pushi 4
+    addi
+    loadi
+    pushi 1
+    subi
+    call f
+    push bp
+    pushi 4
+    addi
+    loadi
+    pushi 2
+    subi
+    call f
+    addi
+    ret 2, 0, 2
+ main:
+    ' * Parameters
+    ' * Local variables
+    ' * int i (offset -2)
+    enter 2
+    ' * Read
+    pusha 0
+    ini
+    storei
+    push bp
+    pushi -2
+    addi
+    pushi 1
+    storei
+    ' * While
+    label4:
+    ' * Condition
+    push bp
+    pushi -2
+    addi
+    loadi
+    pusha 0
+    loadi
+    lei
+    jz label5
+    ' * While body
+    ' * Write
+    pushb 102
+    outb
+    ' * Write
+    pushb 105
+    outb
+    ' * Write
+    pushb 98
+    outb
+    ' * Write
+    pushb 111
+    outb
+    ' * Write
+    pushb 110
+    outb
+    ' * Write
+    pushb 97
+    outb
+    ' * Write
+    pushb 99
+    outb
+    ' * Write
+    pushb 99
+    outb
+    ' * Write
+    pushb 105
+    outb
+    ' * Write
+    pushb 40
+    outb
+    ' * Write
+    push bp
+    pushi -2
+    addi
+    loadi
+    outi
+    ' * Write
+    pushb 41
+    outb
+    ' * Write
+    pushb 32
+    outb
+    ' * Write
+    pushb 61
+    outb
+    ' * Write
+    pushb 32
+    outb
+    ' * Write
+    push bp
+    pushi -2
+    addi
+    loadi
+    call f
+    outi
+    ' * Write
+    pushb 10
+    outb
+    push bp
+    pushi -2
+    addi
+    push bp
+    pushi -2
+    addi
+    loadi
+    pushi 1
+    addi
+    storei
+    jmp label4
+    label5:
+    ret 0, 2, 0
