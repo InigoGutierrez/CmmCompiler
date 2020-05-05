@@ -3,14 +3,16 @@
 interface Visitor<TP, TR>
 
 abstract AbstractVisitor<TP, TR>
-class TypeCheckingVisitor<Void, Void>
+class TypeCheckingVisitor<Type, Void>
 class IdentificationVisitor<Void, Void>
-class OffsetVisitor<Void, Void>
+class OffsetVisitor<Boolean, Void>
 
 abstract AbstractCGVisitor<TP, TR>
-class ValueCGVisitor /'(expressions)'/
-class AddressCGVisitor /'(variables)'/
-class ExecuteCGVisitor /'(statements)'/
+class ValueCGVisitor<CodeGenerator, Void> /'(expressions)'/
+class AddressCGVisitor<CodeGenerator, Void> /'(variables)'/
+class ExecuteCGVisitor<ExecuteCgVisitorParam, Void> /'(statements)'/
+
+class ExecuteCgVisitorParam
 
 interface Visitor {
     TR visit(Program program, TP param)
@@ -26,6 +28,10 @@ abstract AbstractVisitor {
 class TypeCheckingVisitor {
     Void visit(Assignment assignment, Void param)
     Void visit(Read read, Void param)
+    Void visit(If ifStmnt, Void param)
+    Void visit(While whileStmnt, Void param)
+    Void visit(FunctionDefinition fDef, Void param)
+    Void visit(Return returnStmnt, Void param)
     {abstract} (+ override of each expression method)
 }
 
@@ -50,8 +56,16 @@ class ValueCGVisitor {
 }
 
 class ExecuteCGVisitor {
-    Void visit(Program, Void)
-    Void visit(IfStatement, Void)
+    Void visit(Program, ExecuteCgVisitorParam param)
+    Void visit(FunctionDefinition fDef, ExecuteCgVisitorParam param)
+    Void visit(IfStatement, ExecuteCgVisitorParam param)
+}
+
+class ExecuteCgVisitorParam {
+    CodeGenerator cg
+    int bytesReturn
+    int bytesLocals
+    int bytesParams
 }
 
 class AddressCGVisitor {
@@ -69,6 +83,8 @@ Visitor <|.. AbstractCGVisitor
 AbstractCGVisitor <|-- ValueCGVisitor
 AbstractCGVisitor <|-- AddressCGVisitor
 AbstractCGVisitor <|-- ExecuteCGVisitor
+
+ExecuteCgVisitorParam <-- ExecuteCGVisitor
 
 @enduml
 

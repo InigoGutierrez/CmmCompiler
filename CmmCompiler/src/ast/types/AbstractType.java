@@ -69,6 +69,11 @@ public abstract class AbstractType extends AbstractASTNode implements Type {
 	}
 
 	@Override
+	public boolean canWrite() {
+		return false;
+	}
+
+	@Override
 	public boolean isBuiltin() {
 		return false;
 	}

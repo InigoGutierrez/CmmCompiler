@@ -4,6 +4,7 @@ import ast.Program;
 import ast.defs.FunctionDefinition;
 import ast.defs.VarDefinition;
 import ast.statements.*;
+import ast.types.ArrayType;
 import ast.types.FunctionType;
 import ast.types.VoidType;
 
@@ -116,13 +117,44 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<ExecuteCGVisitorParam, V
     // Write
     /*
     execute[[Write: statement -> expression]] =
-        value[[expression]];
-        <out> expression.getType().suffix();
+        if (expression instanceof ArrayType) {
+            int offset = 0;
+            int step = expression.getType().getType().nob();
+            for (int i = 0; i < expression.getSize(); i++) {
+                address[[expression]];
+                <pushi> offset;
+                <addi>
+                <load> expression.getType().getType().suffix();
+                <out> expression.getType().getType().suffix();
+            }
+        }
+        else {
+            value[[expression]];
+            <out> expression.getType().suffix();
+        }
      */
     @Override
     public Void visit(Write write, ExecuteCGVisitorParam param) {
         CodeGenerator cg = param.getCodeGenerator();
         cg.commentWriteStart();
+
+
+        if (write.getExp().getType() instanceof ArrayType) {
+            ArrayType writeArrayType = (ArrayType) write.getExp().getType();
+
+            int offset = 0;
+            int step = writeArrayType.getType().nob();
+            for (int i = 0; i < writeArrayType.getSize(); i++) {
+                write.getExp().accept(new AddressCGVisitor(), cg);
+                cg.push(offset);
+                cg.addi();
+                cg.load(writeArrayType.getType());
+                cg.out(write.getExp().getType());
+                offset += step;
+            }
+            return null;
+        }
+
         write.getExp().accept(new ValueCGVisitor(), cg);
         cg.out(write.getExp().getType());
         return null;
@@ -148,14 +180,49 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<ExecuteCGVisitorParam, V
     // Assignment
     /*
     execute[[Assignment: statement -> expression1 expression2]] =
-        address[[expression1]];
-        value[[expression2]];
-        <store> expression1.getType().suffix();
+        if (expression1 instanceof ArrayType) {
+            int offset = 0;
+            int step = expression1.getType().getType().nob();
+            for (int i = 0; i < expression1.getSize(); i++) {
+                address[[expression1]];
+                <pushi> offset;
+                <addi>
+                address[[expression2]];
+                <pushi> offset;
+                <addi>
+                <load> expression1.getType().getType().suffix();
+                <store> expression1.getType().getType().suffix();
+            }
+        }
+        else {
+            address[[expression1]];
+            value[[expression2]];
+            <store> expression1.getType().suffix();
+        }
      */
     @Override
     public Void visit(Assignment assignment, ExecuteCGVisitorParam param) {
         CodeGenerator cg = param.getCodeGenerator();
-        assignment.getAssigned().accept(new AddressCGVisitor(), cg);
+
+        if (assignment.getAssigned().getType() instanceof ArrayType) {
+            ArrayType valueArrayType = (ArrayType) assignment.getValue().getType();
+
+            int offset = 0;
+            int step = valueArrayType.getType().nob();
+            for (int i = 0; i < valueArrayType.getSize(); i++) {
+                assignment.getAssigned().accept(new AddressCGVisitor(), cg);
+                cg.push(offset);
+                cg.addi();
+                assignment.getValue().accept(new AddressCGVisitor(), cg);
+                cg.push(offset);
+                cg.addi();
+                cg.load(valueArrayType.getType());
+                cg.store(assignment.getValue().getType());
+                offset += step;
+            }
+            return null;
+        }
+
         assignment.getValue().accept(new ValueCGVisitor(), cg);
         cg.store(assignment.getValue().getType());
         return null;

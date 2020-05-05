@@ -39,6 +39,10 @@ public class DoubleType extends AbstractBuiltinType {
     }
 
     @Override
+    public boolean canWrite() {
+        return true;
+    }
+    @Override
     public boolean canAssign(Type valueType) {
         return valueType instanceof DoubleType;
     }

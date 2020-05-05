@@ -1,0 +1,282 @@
+#source "/home/taamas/IIS/4/DLP/labs/gitRepo/CmmCompiler/inputs/labExam/input1.txt"
+' * char myChar (offset 0)
+call main
+halt
+ right:
+    ' * Parameters
+    ' * Local variables
+    ' * [20,char] char1 (offset -20)
+    ' * [5,char] char2 (offset -25)
+    ' * [5,int] int1 (offset -35)
+    ' * [5,int] int2 (offset -45)
+    ' * int i (offset -47)
+    enter 47
+    pushb 104
+    storeb
+    pushb 101
+    storeb
+    pushb 108
+    storeb
+    pushb 108
+    storeb
+    pushb 111
+    storeb
+    push bp
+    pushi -20
+    addi
+    pushi 0
+    addi
+    push bp
+    pushi -25
+    addi
+    pushi 0
+    addi
+    loadb
+    storenull
+    push bp
+    pushi -20
+    addi
+    pushi 1
+    addi
+    push bp
+    pushi -25
+    addi
+    pushi 1
+    addi
+    loadb
+    storenull
+    push bp
+    pushi -20
+    addi
+    pushi 2
+    addi
+    push bp
+    pushi -25
+    addi
+    pushi 2
+    addi
+    loadb
+    storenull
+    push bp
+    pushi -20
+    addi
+    pushi 3
+    addi
+    push bp
+    pushi -25
+    addi
+    pushi 3
+    addi
+    loadb
+    storenull
+    push bp
+    pushi -20
+    addi
+    pushi 4
+    addi
+    push bp
+    pushi -25
+    addi
+    pushi 4
+    addi
+    loadb
+    storenull
+    ' * Write
+    push bp
+    pushi -20
+    addi
+    pushi 0
+    pushi 1
+    muli
+    addi
+    loadb
+    outb
+    ' * Write
+    push bp
+    pushi -20
+    addi
+    pushi 1
+    pushi 1
+    muli
+    addi
+    loadb
+    outb
+    ' * Write
+    push bp
+    pushi -20
+    addi
+    pushi 2
+    pushi 1
+    muli
+    addi
+    loadb
+    outb
+    ' * Write
+    push bp
+    pushi -20
+    addi
+    pushi 3
+    pushi 1
+    muli
+    addi
+    loadb
+    outb
+    ' * Write
+    push bp
+    pushi -20
+    addi
+    pushi 4
+    pushi 1
+    muli
+    addi
+    loadb
+    outb
+    pushi 0
+    storei
+    ' * While
+    label0:
+    ' * Condition
+    push bp
+    pushi -47
+    addi
+    loadi
+    pushi 5
+    lti
+    jz label1
+    ' * While body
+    push bp
+    pushi -47
+    addi
+    loadi
+    pushi 1
+    addi
+    storei
+    push bp
+    pushi -47
+    addi
+    loadi
+    pushi 1
+    addi
+    storei
+    jmp label0
+    label1:
+    push bp
+    pushi -35
+    addi
+    pushi 0
+    addi
+    push bp
+    pushi -45
+    addi
+    pushi 0
+    addi
+    loadi
+    storenull
+    push bp
+    pushi -35
+    addi
+    pushi 2
+    addi
+    push bp
+    pushi -45
+    addi
+    pushi 2
+    addi
+    loadi
+    storenull
+    push bp
+    pushi -35
+    addi
+    pushi 4
+    addi
+    push bp
+    pushi -45
+    addi
+    pushi 4
+    addi
+    loadi
+    storenull
+    push bp
+    pushi -35
+    addi
+    pushi 6
+    addi
+    push bp
+    pushi -45
+    addi
+    pushi 6
+    addi
+    loadi
+    storenull
+    push bp
+    pushi -35
+    addi
+    pushi 8
+    addi
+    push bp
+    pushi -45
+    addi
+    pushi 8
+    addi
+    loadi
+    storenull
+    ' * Write
+    push bp
+    pushi -35
+    addi
+    pushi 0
+    pushi 2
+    muli
+    addi
+    loadi
+    outi
+    ' * Write
+    push bp
+    pushi -35
+    addi
+    pushi 1
+    pushi 2
+    muli
+    addi
+    loadi
+    outi
+    ' * Write
+    push bp
+    pushi -35
+    addi
+    pushi 2
+    pushi 2
+    muli
+    addi
+    loadi
+    outi
+    ' * Write
+    push bp
+    pushi -35
+    addi
+    pushi 3
+    pushi 2
+    muli
+    addi
+    loadi
+    outi
+    ' * Write
+    push bp
+    pushi -35
+    addi
+    pushi 4
+    pushi 2
+    muli
+    addi
+    loadi
+    outi
+    ret 0, 47, 0
+ main:
+    ' * Parameters
+    ' * Local variables
+    enter 0
+    call right
+    ' * Write
+    pushb 10
+    outb
+    ret 0, 0, 0

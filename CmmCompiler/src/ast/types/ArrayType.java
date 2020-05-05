@@ -36,9 +36,25 @@ public class ArrayType extends AbstractType {
     }
 
     @Override
+    public boolean canWrite() {
+        return type.isBuiltin();
+    }
+
+    @Override
     public boolean canAssign(Type valueType) {
-        if (valueType instanceof ArrayType)
-            return type.canAssign(((ArrayType)valueType).type);
+        if (valueType instanceof ArrayType) {
+            ArrayType valueArrayType = (ArrayType) valueType;
+            if (!type.isBuiltin())
+                return false;
+            else if (!valueArrayType.getType().isBuiltin())
+                return false;
+            else if (size < valueArrayType.getSize())
+                return false;
+            else if (!type.canAssign((valueArrayType).getType()))
+                return false;
+            else
+                return true;
+        }
         return false;
     }
 

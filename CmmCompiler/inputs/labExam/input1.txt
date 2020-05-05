@@ -1,0 +1,50 @@
+/*
+Language extensions to be implemented by the student:
+ - One-dimensional arrays of built-in types could be assigned.
+ - In v1=v2, the size of v1 must be greater or equal to the size of v2.
+*/
+
+char myChar;
+
+void right() {
+    char[20] char1;
+    char[5] char2;
+    int[5] int1, int2;
+    int i;
+
+    char2[0] = 'h'; char2[1] = 'e'; char2[2] = 'l'; char2[3] = 'l'; char2[4] = 'o';
+    char1 = char2; // the 5 chars of char2 are copied to the first 5 chars of char1
+	write char1[0], char1[1], char1[2], char1[3], char1[4]  ; // shows hello
+	i=0;
+	while (i<5) {
+		int2[i] = i+1;
+		i = i+1;
+	}
+	int1 = int2; // the 5 ints in int2 are copied to the first 5 ints in int1
+	write int1[0], int1[1], int1[2], int1[3], int1[4]; // shows 12345
+}
+
+/*
+The following function has compiler errors.
+Check that your compiler shows the appropriate error messages.
+Then, comment the whole function to check that the rest of the program is compiled correctly
+   and its output code runs as expected.
+*/
+void wrong() {
+    char[4] char1;
+    char[10] char2;
+    int[4] int1;
+    int[10][20] w1, w2;
+    struct { int field; }[5] rec1, rec2;
+
+    char1 = char2; // compiler error (size of char1 is lower than size of char2)
+    char1 = int1; // compiler error (different element types)
+    rec1 = rec2; // compiler error (element types are not built-in)
+    w1 = w2; // compiler error (not one-dimensional arrays)
+}
+
+
+void main() {
+	right();
+	write '\n';
+}

@@ -159,6 +159,14 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
     }
 
     @Override
+    public Void visit(Write write, Type param) {
+        write.getExp().accept(this, param);
+        if (!write.getExp().getType().canWrite())
+            new ErrorType(write.getLine(), write.getColumn(), "Can't write this type");
+        return null;
+    }
+
+    @Override
     public Void visit(If ifStmnt, Type param) {
         super.visit(ifStmnt, param);
         if (!ifStmnt.getCondition().getType().isBoolean()) {
